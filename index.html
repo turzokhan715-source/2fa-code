@@ -3,84 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 Premium Auth Portal</title>
+    <title>🔐 2FA Authenticator</title>
     
     <!-- Font Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Premium Header -->
-    <div class="premium-header">
-        <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">🔐</span>
-                <span class="logo-text">Premium Auth</span>
-            </div>
-            <div class="header-subtitle">Secure Authentication Portal</div>
-        </div>
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <p>🔐 Secure Authentication Portal - Generate codes instantly</p>
     </div>
 
     <!-- Navigation Tabs -->
-    <div class="nav-container">
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="switchPage('2fa')" data-page="2fa">
-                <span class="nav-icon">🔑</span>
-                <span class="nav-text">2FA Authenticator</span>
-            </button>
-            <button class="nav-tab" onclick="switchPage('email')" data-page="email">
-                <span class="nav-icon">📧</span>
-                <span class="nav-text">Mail Code Generator</span>
-            </button>
-        </div>
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showPage('2fa')">
+            <span class="nav-icon">🔑</span>
+            <span class="nav-text">2FA Authenticator</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('email')">
+            <span class="nav-icon">📧</span>
+            <span class="nav-text">Mail Code Generator</span>
+        </button>
     </div>
 
     <div class="container">
         <!-- 2FA Page -->
-        <div id="page-2fa" class="page-content active">
-            <div class="premium-card glow-card">
+        <div id="page2fa" class="page-content active">
+            <div class="main-card">
                 <div class="card-header">
                     <h1>🔐 2FA Authenticator</h1>
-                    <p>Time-based One-Time Password Generator</p>
+                    <p>Secure Time-based One-Time Password Generator</p>
                 </div>
                 
                 <div class="input-group">
-                    <label for="secretKey">Secret Key</label>
+                    <label for="secretKey">SECRET KEY</label>
                     <input 
                         type="text" 
                         id="secretKey" 
-                        class="premium-input"
+                        class="input-white"
                         placeholder="JBSWY3DPEHPK3PXP"
                         autocomplete="off"
                     >
                 </div>
                 
-                <button class="premium-btn" onclick="generateCode()">
-                    <span class="btn-glow"></span>
+                <button id="generateBtn" class="generate-btn-blue" onclick="generateCode()">
                     <span class="btn-icon">🔑</span>
                     <span class="btn-text">Generate Code</span>
                 </button>
                 
-                <!-- Code Display -->
-                <div id="codeDisplay" class="code-display glow-box" style="display: none;">
-                    <div class="code-label">Your Code</div>
+                <!-- Code Display Box -->
+                <div id="codeDisplay" class="code-display" style="display: none;">
+                    <div class="code-label">Your Code:</div>
                     <div id="totpCode" class="totp-code">------</div>
-                    <div class="code-timer">
-                        <div class="timer-bar"></div>
-                    </div>
                 </div>
                 
-                <p class="copy-hint" id="copyHint">✓ Copied to clipboard</p>
+                <p class="copy-hint" id="copyHint">✓ Code copied to clipboard!</p>
             </div>
 
             <!-- History Card -->
-            <div class="premium-card glow-card">
+            <div class="history-card">
                 <div class="history-header">
                     <h2>📋 Recent Codes</h2>
-                    <span id="historyCount" class="count-badge">0</span>
+                    <span id="historyCount">0 saved</span>
                 </div>
                 <div id="historyList" class="history-list">
                     <p class="empty-state">No codes generated yet</p>
@@ -89,53 +77,54 @@
         </div>
 
         <!-- Email Page -->
-        <div id="page-email" class="page-content">
-            <div class="premium-card glow-card">
+        <div id="pageEmail" class="page-content">
+            <div class="email-card">
                 <div class="card-header">
                     <h1>📧 Mail Code Generator</h1>
                     <p>Auto-fetch verification codes from Hotmail/Outlook</p>
                 </div>
                 
-                <!-- Provider Badge -->
-                <div class="provider-badge glow-badge">
-                    <span class="provider-icon">📨</span>
-                    <span class="provider-name">Hotmail / Outlook</span>
+                <!-- Hotmail Badge -->
+                <div class="email-provider">
+                    <div class="provider-badge">
+                        <span class="provider-icon">📨</span>
+                        <span class="provider-name">Hotmail / Outlook</span>
+                    </div>
                 </div>
                 
                 <div class="input-group">
-                    <label for="emailInput">Email Address</label>
-                    <div class="input-wrapper">
+                    <label for="emailInput">ENTER YOUR EMAIL</label>
+                    <div class="email-input-wrapper">
                         <input 
                             type="email" 
                             id="emailInput" 
-                            class="premium-input premium-input-large"
+                            class="email-input-large"
                             placeholder="your.email@hotmail.com"
                             autocomplete="email"
                         >
-                        <button class="clear-btn" onclick="clearEmail()" title="Clear">
+                        <button class="clear-btn" onclick="clearEmail()" title="Clear email">
                             ✕
                         </button>
                     </div>
                 </div>
                 
-                <!-- Status -->
                 <div id="emailStatus" class="email-status">
                     <span class="status-icon">⏳</span>
                     <span id="statusText">Enter email to start monitoring</span>
                 </div>
                 
-                <!-- Code Display -->
-                <div id="emailCodeDisplay" class="email-code-box glow-box" style="display: none;">
+                <!-- Email Code Display -->
+                <div id="emailCodeDisplay" class="email-code-display-small" style="display: none;">
                     <div class="code-row">
                         <div class="code-info">
-                            <div class="code-label-small">Verification Code</div>
-                            <div id="emailCode" class="email-code">------</div>
+                            <div class="code-label-small">Code:</div>
+                            <div id="emailCode" class="email-code-small">------</div>
                         </div>
-                        <button class="copy-btn" onclick="copyEmailCode()">
+                        <button class="copy-btn" onclick="copyEmailCode()" title="Copy code">
                             📋 Copy
                         </button>
                     </div>
-                    <div class="code-time" id="codeTime">Checking...</div>
+                    <div class="code-time-small" id="codeTime">Checking...</div>
                 </div>
             </div>
         </div>
