@@ -1,7 +1,33 @@
 let emailCheckInterval = null;
 let lastCheckedCode = null;
+let currentEmailProvider = 'gmail'; // Default
 
-// Email input listener
+// Switch email tab
+function switchEmailTab(provider) {
+    currentEmailProvider = provider;
+    
+    // Update active tab
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.closest('.tab-btn').classList.add('active');
+    
+    // Update placeholder
+    const emailInput = document.getElementById('emailInput');
+    if (provider === 'gmail') {
+        emailInput.placeholder = 'your.email@gmail.com';
+    } else {
+        emailInput.placeholder = 'your.email@hotmail.com';
+    }
+    
+    // Restart monitoring if email exists
+    const email = emailInput.value.trim();
+    if (email && isValidEmail(email)) {
+        startEmailMonitoring(email);
+    }
+}
+
+// Email input listener - AUTO START (no button)
 document.getElementById('emailInput').addEventListener('input', function(e) {
     const email = e.target.value.trim();
     
@@ -23,7 +49,8 @@ function startEmailMonitoring(email) {
     stopEmailMonitoring();
     
     // Update status
-    updateEmailStatus('monitoring', `Monitoring ${email}...`);
+    const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
+    updateEmailStatus('monitoring', `Monitoring ${providerName}...`);
     
     // Start checking every 3 seconds
     emailCheckInterval = setInterval(() => {
@@ -43,13 +70,11 @@ function stopEmailMonitoring() {
     
     updateEmailStatus('idle', 'Enter email to start monitoring');
     document.getElementById('emailCodeDisplay').style.display = 'none';
+    localStorage.removeItem('emailMonitorStart');
 }
 
-// Check email for verification code (DEMO - uses random code)
+// Check email for verification code (DEMO)
 function checkEmailForCode(email) {
-    // DEMO: Simulate finding a code after 10 seconds
-    // In real implementation, this would call an API
-    
     const now = Date.now();
     const startTime = parseInt(localStorage.getItem('emailMonitorStart') || now);
     
@@ -59,16 +84,20 @@ function checkEmailForCode(email) {
     
     const elapsed = now - startTime;
     
-    if (elapsed > 10000) { // After 10 seconds, show a code
+    // DEMO: Show code after 10 seconds
+    if (elapsed > 10000) {
         const code = generateRandomCode();
         
         if (code !== lastCheckedCode) {
             lastCheckedCode = code;
             displayEmailCode(code);
-            updateEmailStatus('found', '✓ Code found!');
+            const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
+            updateEmailStatus('found', `✓ Code found in ${providerName}!`);
         }
     } else {
-        updateEmailStatus('monitoring', `Checking... (${Math.ceil((10000 - elapsed) / 1000)}s)`);
+        const remaining = Math.ceil((10000 - elapsed) / 1000);
+        const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
+        updateEmailStatus('monitoring', `Checking ${providerName}... (${remaining}s)`);
     }
 }
 
