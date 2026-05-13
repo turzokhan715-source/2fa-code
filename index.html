@@ -25,23 +25,21 @@
                     placeholder="your.email@hotmail.com"
                     autocomplete="email"
                 >
-                <button class="clear-btn" onclick="clearEmail()" title="Clear email">
+                <button class="clear-btn-small" onclick="clearEmail()" title="Clear">
                     ✕
                 </button>
             </div>
         </div>
         
-        <!-- Email Display Box (Hidden by default) -->
+        <!-- Email Display Box -->
         <div id="emailDisplayBox" class="email-display-box" style="display: none;">
             <div class="email-display-header">
                 <span class="email-label">📧 Extracted Email:</span>
-                <button class="copy-email-btn" onclick="copyExtractedEmail()" title="Copy email">
+                <button class="copy-email-btn" onclick="copyExtractedEmail()">
                     📋 Copy
                 </button>
             </div>
-            <div id="extractedEmail" class="extracted-email-text">
-                email@example.com
-            </div>
+            <div id="extractedEmail" class="extracted-email-text"></div>
         </div>
         
         <!-- Status -->
@@ -50,10 +48,10 @@
             <span id="statusText">Enter email to start monitoring</span>
         </div>
         
-        <!-- Code Display Box (Hidden by default) -->
+        <!-- Code Display Box -->
         <div id="emailCodeDisplay" class="email-code-box" style="display: none;">
             <div class="code-box-header">
-                <span class="code-box-label">🔑 Verification Code:</span>
+                <span class="code-box-label">🔑 Verification Code</span>
             </div>
             <div class="code-box-content">
                 <div id="emailCode" class="verification-code">------</div>
@@ -62,7 +60,7 @@
                 </button>
             </div>
             <div class="code-box-footer">
-                <span id="codeTime" class="code-timestamp">Waiting for code...</span>
+                <span id="codeTime" class="code-timestamp">Waiting...</span>
             </div>
         </div>
         
