@@ -14,28 +14,25 @@
 
     <!-- Navigation Tabs -->
     <div class="nav-tabs">
-        <button class="nav-btn active" onclick="switchPage('page2FA')">
-            <span class="nav-icon">🔑</span>
+        <button class="nav-btn active" onclick="switchTab('2FA')">
+            <span class="nav-icon">🔐</span>
             <span class="nav-text">2FA Authenticator</span>
         </button>
-        <button class="nav-btn" onclick="switchPage('pageEmail')">
+        <button class="nav-btn" onclick="switchTab('Email')">
             <span class="nav-icon">📧</span>
             <span class="nav-text">Mail Code Generator</span>
         </button>
-        <button class="nav-btn" onclick="switchPage('pageHistory')">
-            <span class="nav-icon">📜</span>
-            <span class="nav-text">Recent Codes</span>
-        </button>
     </div>
 
-    <!-- Main Container -->
+    <!-- Container -->
     <div class="container">
-        <!-- 2FA Page -->
+        
+        <!-- 2FA Authenticator Page -->
         <div id="page2FA" class="page-content active">
             <div class="main-card">
                 <div class="card-header">
-                    <h1>🔑 2FA Authenticator</h1>
-                    <p>Secure Time-based One-Time Password Generator</p>
+                    <h1>🔐 2FA Authenticator</h1>
+                    <p>Secure Time-Based One-Time Password Generator</p>
                 </div>
                 
                 <div class="input-group">
@@ -44,22 +41,21 @@
                         type="text" 
                         id="secretKey" 
                         class="input-white"
-                        placeholder="Enter your secret key"
+                        placeholder="Enter your secret key..."
                         autocomplete="off"
                     >
                 </div>
                 
                 <button class="generate-btn-blue" onclick="generateTOTP()">
-                    <span class="btn-icon">🔐</span>
+                    <span class="btn-icon">🔑</span>
                     <span>Generate Code</span>
                 </button>
                 
                 <div id="codeDisplay" class="code-display" style="display: none;">
                     <div class="code-label">YOUR 2FA CODE</div>
                     <div id="totpCode" class="totp-code">------</div>
+                    <div id="timeRemaining" class="time-remaining">Valid for 30s</div>
                 </div>
-                
-                <div id="copyHint" class="copy-hint">✓ Code copied to clipboard!</div>
             </div>
         </div>
 
@@ -136,20 +132,6 @@
             </div>
         </div>
 
-        <!-- History Page -->
-        <div id="pageHistory" class="page-content">
-            <div class="history-card">
-                <div class="history-header">
-                    <h2>📜 Recent Codes</h2>
-                    <span id="historyCount">0 codes</span>
-                </div>
-                <div class="history-list" id="historyList">
-                    <div class="empty-state">
-                        No codes generated yet
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="script.js"></script>
