@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Reset monitoring state
     localStorage.removeItem('emailMonitorStart');
     
+    // Update email history display
+    updateEmailHistoryDisplay();
+    
     // Email input listener - AUTO START
     const emailInput = document.getElementById('emailInput');
     if (emailInput) {
@@ -108,10 +111,6 @@ function startEmailMonitoring(email) {
         emailDisplayBox.style.display = 'block';
     }
     
-    if (cancelBtn) {
-        cancelBtn.style.display = 'flex';
-    }
-    
     // Update status
     updateEmailStatus('monitoring', '🔄 Monitoring Hotmail/Outlook...');
     
@@ -134,7 +133,6 @@ function stopEmailMonitoring() {
     
     const emailDisplayBox = document.getElementById('emailDisplayBox');
     const emailCodeDisplay = document.getElementById('emailCodeDisplay');
-    const cancelBtn = document.getElementById('cancelMonitorBtn');
     
     if (emailDisplayBox) {
         emailDisplayBox.style.display = 'none';
@@ -142,10 +140,6 @@ function stopEmailMonitoring() {
     
     if (emailCodeDisplay) {
         emailCodeDisplay.style.display = 'none';
-    }
-    
-    if (cancelBtn) {
-        cancelBtn.style.display = 'none';
     }
     
     localStorage.removeItem('emailMonitorStart');
@@ -174,6 +168,9 @@ function checkEmailForCode(email) {
             currentEmailCode = code;
             displayEmailCode(code);
             updateEmailStatus('found', '✓ Code found in Hotmail/Outlook!');
+            
+            // Save to email history
+            saveToEmailHistory(email, code);
         }
     } else {
         const remaining = Math.ceil((10000 - elapsed) / 1000);
@@ -233,6 +230,64 @@ function updateEmailStatus(type, text) {
     }
     
     statusText.textContent = text;
+}
+
+// Email History Management
+function saveToEmailHistory(email, code) {
+    const history = getEmailHistory();
+    
+    const entry = {
+        email: email,
+        code: code,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Add to beginning of array
+    history.unshift(entry);
+    
+    // Keep only last 10 entries
+    if (history.length > 10) {
+        history.pop();
+    }
+    
+    localStorage.setItem('emailHistory', JSON.stringify(history));
+    updateEmailHistoryDisplay();
+}
+
+function getEmailHistory() {
+    const stored = localStorage.getItem('emailHistory');
+    return stored ? JSON.parse(stored) : [];
+}
+
+function updateEmailHistoryDisplay() {
+    const history = getEmailHistory();
+    const historyList = document.getElementById('emailHistoryList');
+    const historyCount = document.getElementById('emailHistoryCount');
+    
+    if (!historyList || !historyCount) return;
+    
+    historyCount.textContent = `${history.length} codes`;
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<div class="empty-state">No email codes received yet</div>';
+        return;
+    }
+    
+    historyList.innerHTML = history.map(entry => {
+        const date = new Date(entry.timestamp);
+        const timeStr = date.toLocaleTimeString();
+        const emailPreview = entry.email.length > 25 ? entry.email.substring(0, 25) + '...' : entry.email;
+        
+        return `
+            <div class="history-item">
+                <div class="history-code">${entry.code}</div>
+                <div class="history-details">
+                    <div class="history-key">${emailPreview}</div>
+                    <div class="history-time">${timeStr}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // Copy to clipboard helper
