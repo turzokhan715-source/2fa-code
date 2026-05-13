@@ -1,21 +1,26 @@
-// Switch between pages
-function switchPage(page) {
+// Show page function
+function showPage(pageName) {
     // Hide all pages
-    document.querySelectorAll('.page-content').forEach(p => {
-        p.classList.remove('active');
+    document.querySelectorAll('.page-content').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Remove active from all nav buttons
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
     });
     
     // Show selected page
-    document.getElementById(`page-${page}`).classList.add('active');
-    
-    // Update active tab
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    document.querySelector(`[data-page="${page}"]`).classList.add('active');
-    
-    // Stop email monitoring when switching away from email page
-    if (page !== 'email' && typeof stopEmailMonitoring === 'function') {
-        stopEmailMonitoring();
+    if (pageName === '2fa') {
+        document.getElementById('page2fa').classList.add('active');
+        document.querySelectorAll('.nav-btn')[0].classList.add('active');
+    } else if (pageName === 'email') {
+        document.getElementById('pageEmail').classList.add('active');
+        document.querySelectorAll('.nav-btn')[1].classList.add('active');
     }
+}
+
+// Default: Show 2FA page on load
+document.addEventListener('DOMContentLoaded', function() {
+    showPage('2fa');
+});
