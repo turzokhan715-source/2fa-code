@@ -4,12 +4,13 @@
     box-sizing: border-box;
 }
 
-/* PURE BLACK BACKGROUND - Like Hidden Wiki */
+/* FORCE DARK MODE - ALWAYS (Ignore System Settings) */
 html {
     background: 
  !important;
     min-height: 100vh;
     width: 100%;
+    color-scheme: dark !important;
 }
 
 body {
@@ -25,9 +26,10 @@ body {
     color: 
  !important;
     width: 100%;
+    color-scheme: dark !important;
 }
 
-/* Welcome Header - Dark with Glow */
+/* Welcome Header */
 .welcome-header {
     width: 100%;
     background: 
@@ -35,9 +37,8 @@ body {
     backdrop-filter: blur(10px);
     padding: 12px 20px;
     text-align: center;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3), 0 2px 10px rgba(0,0,0,0.8);
-    margin: 0;
-    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    margin: 0 0 20px 0;
     border-bottom: 1px solid rgba(59, 130, 246, 0.3);
 }
 
@@ -50,7 +51,7 @@ body {
     text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
-/* Navigation Tabs with Glow */
+/* Navigation Tabs */
 .nav-tabs {
     display: flex;
     gap: 12px;
@@ -97,7 +98,7 @@ body {
     color: white !important;
     border-color: 
 ;
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.7), 0 4px 12px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
 }
 
 .nav-icon {
@@ -116,7 +117,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: transparent !important;
 }
 
 /* Page Content */
@@ -129,7 +129,7 @@ body {
     display: block;
 }
 
-/* Cards - Dark with Strong Glow */
+/* Cards */
 .main-card, .email-card, .history-card {
     background: 
  !important;
@@ -138,8 +138,7 @@ body {
     padding: 40px;
     box-shadow: 
         0 0 60px rgba(59, 130, 246, 0.4),
-        0 0 100px rgba(59, 130, 246, 0.2),
-        0 20px 60px rgba(0,0,0,0.8);
+        0 0 100px rgba(59, 130, 246, 0.2);
     margin-bottom: 24px;
     width: 100%;
 }
@@ -180,7 +179,7 @@ label {
     text-transform: uppercase;
 }
 
-/* Secret Key Input - WHITE with Glow */
+/* Secret Key Input - WHITE */
 .input-white {
     width: 100%;
     padding: 14px 16px;
@@ -199,7 +198,7 @@ label {
     outline: none;
     border-color: 
 ;
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
 }
 
 .input-white::placeholder {
@@ -207,7 +206,7 @@ label {
  !important;
 }
 
-/* Generate Button - BLUE with Strong Glow */
+/* Generate Button - BLUE */
 .generate-btn-blue {
     width: 100%;
     padding: 16px;
@@ -226,10 +225,7 @@ label {
     justify-content: center;
     gap: 8px;
     margin-bottom: 16px;
-    box-shadow: 
-        0 0 40px rgba(59, 130, 246, 0.7),
-        0 0 80px rgba(59, 130, 246, 0.4),
-        0 4px 12px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
 }
 
 .btn-icon {
@@ -238,19 +234,16 @@ label {
 
 .generate-btn-blue:hover {
     transform: translateY(-2px);
-    box-shadow: 
-        0 0 60px rgba(59, 130, 246, 0.9),
-        0 0 100px rgba(59, 130, 246, 0.5),
-        0 6px 20px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 60px rgba(59, 130, 246, 0.9);
 }
 
 .generate-btn-blue:active {
     transform: translateY(0);
 }
 
-/* Code Display with Strong Glow */
+/* Code Display - WHITE */
 .code-display {
-    background: rgba(10, 10, 10, 0.9) !important;
+    background: white !important;
     border: 2px solid rgba(59, 130, 246, 0.6);
     border-radius: 12px;
     padding: 20px;
@@ -278,7 +271,7 @@ label {
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
 }
 
-/* Email Provider Badge with Glow */
+/* Email Provider Badge */
 .email-provider {
     display: flex;
     justify-content: center;
@@ -304,7 +297,7 @@ label {
     font-size: 1.1rem;
 }
 
-/* Email Input - Dark with Glow */
+/* Email Input - WHITE */
 .email-input-wrapper {
     display: flex;
     align-items: center;
@@ -319,7 +312,7 @@ label {
     font-size: 1.05rem;
     transition: all 0.2s;
     font-family: 'Inter', sans-serif;
-    background: rgba(10, 10, 10, 0.9) !important;
+    background: white !important;
     color: 
  !important;
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
@@ -329,8 +322,7 @@ label {
     outline: none;
     border-color: 
 ;
-    background: rgba(10, 10, 10, 1) !important;
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
 }
 
 .email-input-large::placeholder {
@@ -338,29 +330,29 @@ label {
  !important;
 }
 
-/* Clear Button - RED with Glow */
+/* Clear Button - SMALLER RED */
 .clear-btn {
-    padding: 18px 20px;
+    padding: 14px 16px;
     background: linear-gradient(135deg, 
  0%, 
  100%) !important;
     color: white !important;
     border: none;
     border-radius: 12px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
-    min-width: 60px;
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.7);
+    min-width: 50px;
 }
 
 .clear-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 60px rgba(239, 68, 68, 0.9);
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.9);
 }
 
-/* Email Status with Glow */
+/* Email Status */
 .email-status {
     background: rgba(10, 10, 10, 0.9) !important;
     border: 2px solid rgba(59, 130, 246, 0.4);
@@ -399,9 +391,9 @@ label {
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
 }
 
-/* Email Code Display with Strong Glow */
+/* Email Code Display - WHITE */
 .email-code-display-small {
-    background: rgba(59, 130, 246, 0.15) !important;
+    background: white !important;
     border: 2px solid 
 ;
     border-radius: 12px;
@@ -484,7 +476,7 @@ label {
     opacity: 1;
 }
 
-/* History Card with Glow */
+/* History Card */
 .history-card {
     max-height: 500px;
     overflow: hidden;
@@ -550,7 +542,7 @@ label {
     font-size: 0.9rem;
 }
 
-/* History Item with Glow */
+/* History Item */
 .history-item {
     padding: 16px;
     background: rgba(10, 10, 10, 0.9) !important;
@@ -601,23 +593,33 @@ label {
     font-weight: 500;
 }
 
-/* Responsive - Mobile */
+/* Responsive - Mobile (BETTER) */
 @media (max-width: 600px) {
+    .welcome-header {
+        padding: 10px 16px;
+    }
+    
     .welcome-header p {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
     
     .nav-tabs {
         gap: 8px;
+        padding: 0 16px;
     }
     
     .nav-btn {
-        padding: 12px 16px;
+        padding: 12px 12px;
         font-size: 0.85rem;
+        gap: 6px;
+    }
+    
+    .nav-icon {
+        font-size: 1rem;
     }
     
     .nav-text {
-        display: none;
+        font-size: 0.8rem;
     }
     
     .container {
@@ -629,8 +631,30 @@ label {
         border-radius: 20px;
     }
     
+    .card-header {
+        margin-bottom: 24px;
+    }
+    
     .card-header h1 {
         font-size: 1.4rem;
+    }
+    
+    .card-header p {
+        font-size: 0.8rem;
+    }
+    
+    .input-white {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+    }
+    
+    .generate-btn-blue {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+    
+    .code-display {
+        padding: 16px;
     }
     
     .totp-code {
@@ -644,12 +668,52 @@ label {
     }
     
     .clear-btn {
-        padding: 14px 16px;
-        min-width: 50px;
+        padding: 14px 14px;
+        min-width: 48px;
+        font-size: 0.9rem;
+    }
+    
+    .email-code-display-small {
+        padding: 14px;
     }
     
     .email-code-small {
         font-size: 1.2rem;
         letter-spacing: 3px;
+    }
+    
+    .copy-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .history-item {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .history-code {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* Laptop/Desktop - Better View */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 600px;
+    }
+    
+    .main-card, .email-card, .history-card {
+        padding: 48px;
+    }
+    
+    .card-header h1 {
+        font-size: 2rem;
+    }
+    
+    .totp-code {
+        font-size: 2.4rem;
+        letter-spacing: 10px;
     }
 }
