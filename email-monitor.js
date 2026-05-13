@@ -1,33 +1,8 @@
 let emailCheckInterval = null;
 let lastCheckedCode = null;
-let currentEmailProvider = 'gmail'; // Default
+let currentEmailCode = null;
 
-// Switch email tab
-function switchEmailTab(provider) {
-    currentEmailProvider = provider;
-    
-    // Update active tab
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    event.target.closest('.tab-btn').classList.add('active');
-    
-    // Update placeholder
-    const emailInput = document.getElementById('emailInput');
-    if (provider === 'gmail') {
-        emailInput.placeholder = 'your.email@gmail.com';
-    } else {
-        emailInput.placeholder = 'your.email@hotmail.com';
-    }
-    
-    // Restart monitoring if email exists
-    const email = emailInput.value.trim();
-    if (email && isValidEmail(email)) {
-        startEmailMonitoring(email);
-    }
-}
-
-// Email input listener - AUTO START (no button)
+// Email input listener - AUTO START
 document.getElementById('emailInput').addEventListener('input', function(e) {
     const email = e.target.value.trim();
     
@@ -37,6 +12,32 @@ document.getElementById('emailInput').addEventListener('input', function(e) {
         stopEmailMonitoring();
     }
 });
+
+// Clear email function
+function clearEmail() {
+    document.getElementById('emailInput').value = '';
+    stopEmailMonitoring();
+}
+
+// Copy email code function
+function copyEmailCode() {
+    if (currentEmailCode) {
+        copyToClipboard(currentEmailCode);
+        
+        // Visual feedback
+        const btn = document.querySelector('.copy-code-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        btn.style.background = '
+';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '
+';
+        }, 2000);
+    }
+}
 
 // Validate email
 function isValidEmail(email) {
@@ -49,13 +50,12 @@ function startEmailMonitoring(email) {
     stopEmailMonitoring();
     
     // Update status
-    const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
-    updateEmailStatus('monitoring', `Monitoring ${providerName}...`);
+    updateEmailStatus('monitoring', 'Monitoring Hotmail/Outlook...');
     
-    // Start checking every 3 seconds
+    // Start checking every 1 second (faster API check)
     emailCheckInterval = setInterval(() => {
         checkEmailForCode(email);
-    }, 3000);
+    }, 1000);
     
     // Check immediately
     checkEmailForCode(email);
@@ -71,9 +71,10 @@ function stopEmailMonitoring() {
     updateEmailStatus('idle', 'Enter email to start monitoring');
     document.getElementById('emailCodeDisplay').style.display = 'none';
     localStorage.removeItem('emailMonitorStart');
+    currentEmailCode = null;
 }
 
-// Check email for verification code (DEMO)
+// Check email for verification code (DEMO - every second)
 function checkEmailForCode(email) {
     const now = Date.now();
     const startTime = parseInt(localStorage.getItem('emailMonitorStart') || now);
@@ -90,14 +91,13 @@ function checkEmailForCode(email) {
         
         if (code !== lastCheckedCode) {
             lastCheckedCode = code;
+            currentEmailCode = code;
             displayEmailCode(code);
-            const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
-            updateEmailStatus('found', `✓ Code found in ${providerName}!`);
+            updateEmailStatus('found', '✓ Code found in Hotmail/Outlook!');
         }
     } else {
         const remaining = Math.ceil((10000 - elapsed) / 1000);
-        const providerName = currentEmailProvider === 'gmail' ? 'Gmail' : 'Hotmail/Outlook';
-        updateEmailStatus('monitoring', `Checking ${providerName}... (${remaining}s)`);
+        updateEmailStatus('monitoring', `Checking Hotmail/Outlook... (${remaining}s)`);
     }
 }
 
@@ -111,9 +111,6 @@ function displayEmailCode(code) {
     document.getElementById('emailCode').textContent = code;
     document.getElementById('codeTime').textContent = `Received at ${new Date().toLocaleTimeString()}`;
     document.getElementById('emailCodeDisplay').style.display = 'block';
-    
-    // Auto-copy
-    copyToClipboard(code);
 }
 
 // Update email status
@@ -140,3 +137,4 @@ function updateEmailStatus(type, text) {
 document.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem('emailMonitorStart');
 });
+
