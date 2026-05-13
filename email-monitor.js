@@ -25,16 +25,18 @@ function copyEmailCode() {
         copyToClipboard(currentEmailCode);
         
         // Visual feedback
-        const btn = document.querySelector('.copy-code-btn');
+        const btn = document.querySelector('.copy-btn');
         const originalText = btn.innerHTML;
         btn.innerHTML = '✓ Copied!';
-        btn.style.background = '
-';
+        btn.style.background = 'linear-gradient(135deg, 
+ 0%, 
+ 100%)';
         
         setTimeout(() => {
             btn.innerHTML = originalText;
-            btn.style.background = '
-';
+            btn.style.background = 'linear-gradient(135deg, 
+ 0%, 
+ 100%)';
         }, 2000);
     }
 }
@@ -137,4 +139,3 @@ function updateEmailStatus(type, text) {
 document.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem('emailMonitorStart');
 });
-
