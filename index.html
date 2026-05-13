@@ -1,72 +1,158 @@
-<!-- Email Page -->
-<div id="pageEmail" class="page-content">
-    <div class="email-card">
-        <div class="card-header">
-            <h1>📧 Mail Code Generator</h1>
-            <p>Auto-fetch verification codes from Hotmail/Outlook</p>
-        </div>
-        
-        <!-- Hotmail Badge -->
-        <div class="email-provider">
-            <div class="provider-badge">
-                <span class="provider-icon">📨</span>
-                <span class="provider-name">Hotmail / Outlook</span>
-            </div>
-        </div>
-        
-        <!-- Email Input Section -->
-        <div class="input-group">
-            <label for="emailInput">ENTER YOUR EMAIL</label>
-            <div class="email-input-wrapper">
-                <input 
-                    type="email" 
-                    id="emailInput" 
-                    class="email-input-large"
-                    placeholder="your.email@hotmail.com"
-                    autocomplete="email"
-                >
-                <button class="clear-btn" onclick="clearEmail()" title="Clear">
-                    ✕
-                </button>
-            </div>
-        </div>
-        
-        <!-- Email Display Box -->
-        <div id="emailDisplayBox" class="email-display-box" style="display: none;">
-            <div class="email-display-header">
-                <span class="email-label">📧 Extracted Email:</span>
-                <button class="copy-email-btn" onclick="copyExtractedEmail()">
-                    📋 Copy
-                </button>
-            </div>
-            <div id="extractedEmail" class="extracted-email-text"></div>
-        </div>
-        
-        <!-- Status -->
-        <div id="emailStatus" class="email-status">
-            <span class="status-icon">⏳</span>
-            <span id="statusText">Enter email to start monitoring</span>
-        </div>
-        
-        <!-- Code Display Box -->
-        <div id="emailCodeDisplay" class="email-code-box" style="display: none;">
-            <div class="code-box-header">
-                <span class="code-box-label">🔑 Verification Code</span>
-            </div>
-            <div class="code-box-content">
-                <div id="emailCode" class="verification-code">------</div>
-                <button class="copy-code-btn" onclick="copyEmailCode()">
-                    📋 Copy Code
-                </button>
-            </div>
-            <div class="code-box-footer">
-                <span id="codeTime" class="code-timestamp">Waiting...</span>
-            </div>
-        </div>
-        
-        <!-- Cancel Button -->
-        <button id="cancelMonitorBtn" class="cancel-monitor-btn" onclick="cancelMonitoring()" style="display: none;">
-            ✕ Cancel Monitoring
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Secure Authentication Portal - Generate codes instantly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <p>🔐 Secure Authentication Portal - Generate codes instantly</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="switchPage('page2FA')">
+            <span class="nav-icon">🔑</span>
+            <span class="nav-text">2FA Authenticator</span>
+        </button>
+        <button class="nav-btn" onclick="switchPage('pageEmail')">
+            <span class="nav-icon">📧</span>
+            <span class="nav-text">Mail Code Generator</span>
+        </button>
+        <button class="nav-btn" onclick="switchPage('pageHistory')">
+            <span class="nav-icon">📜</span>
+            <span class="nav-text">Recent Codes</span>
         </button>
     </div>
-</div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- 2FA Page -->
+        <div id="page2FA" class="page-content active">
+            <div class="main-card">
+                <div class="card-header">
+                    <h1>🔑 2FA Authenticator</h1>
+                    <p>Secure Time-based One-Time Password Generator</p>
+                </div>
+                
+                <div class="input-group">
+                    <label for="secretKey">SECRET KEY</label>
+                    <input 
+                        type="text" 
+                        id="secretKey" 
+                        class="input-white"
+                        placeholder="Enter your secret key"
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <button class="generate-btn-blue" onclick="generateTOTP()">
+                    <span class="btn-icon">🔐</span>
+                    <span>Generate Code</span>
+                </button>
+                
+                <div id="codeDisplay" class="code-display" style="display: none;">
+                    <div class="code-label">YOUR 2FA CODE</div>
+                    <div id="totpCode" class="totp-code">------</div>
+                </div>
+                
+                <div id="copyHint" class="copy-hint">✓ Code copied to clipboard!</div>
+            </div>
+        </div>
+
+        <!-- Email Page -->
+        <div id="pageEmail" class="page-content">
+            <div class="email-card">
+                <div class="card-header">
+                    <h1>📧 Mail Code Generator</h1>
+                    <p>Auto-fetch verification codes from Hotmail/Outlook</p>
+                </div>
+                
+                <!-- Hotmail Badge -->
+                <div class="email-provider">
+                    <div class="provider-badge">
+                        <span class="provider-icon">📨</span>
+                        <span class="provider-name">Hotmail / Outlook</span>
+                    </div>
+                </div>
+                
+                <!-- Email Input Section -->
+                <div class="input-group">
+                    <label for="emailInput">ENTER YOUR EMAIL</label>
+                    <div class="email-input-wrapper">
+                        <input 
+                            type="email" 
+                            id="emailInput" 
+                            class="email-input-large"
+                            placeholder="your.email@hotmail.com"
+                            autocomplete="email"
+                        >
+                        <button class="clear-btn" onclick="clearEmail()" title="Clear">
+                            ✕
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Email Display Box -->
+                <div id="emailDisplayBox" class="email-display-box" style="display: none;">
+                    <div class="email-display-header">
+                        <span class="email-label">📧 Extracted Email:</span>
+                        <button class="copy-email-btn" onclick="copyExtractedEmail()">
+                            📋 Copy
+                        </button>
+                    </div>
+                    <div id="extractedEmail" class="extracted-email-text"></div>
+                </div>
+                
+                <!-- Status -->
+                <div id="emailStatus" class="email-status">
+                    <span class="status-icon">⏳</span>
+                    <span id="statusText">Enter email to start monitoring</span>
+                </div>
+                
+                <!-- Code Display Box -->
+                <div id="emailCodeDisplay" class="email-code-box" style="display: none;">
+                    <div class="code-box-header">
+                        <span class="code-box-label">🔑 Verification Code</span>
+                    </div>
+                    <div class="code-box-content">
+                        <div id="emailCode" class="verification-code">------</div>
+                        <button class="copy-code-btn" onclick="copyEmailCode()">
+                            📋 Copy Code
+                        </button>
+                    </div>
+                    <div class="code-box-footer">
+                        <span id="codeTime" class="code-timestamp">Waiting...</span>
+                    </div>
+                </div>
+                
+                <!-- Cancel Button -->
+                <button id="cancelMonitorBtn" class="cancel-monitor-btn" onclick="cancelMonitoring()" style="display: none;">
+                    ✕ Cancel Monitoring
+                </button>
+            </div>
+        </div>
+
+        <!-- History Page -->
+        <div id="pageHistory" class="page-content">
+            <div class="history-card">
+                <div class="history-header">
+                    <h2>📜 Recent Codes</h2>
+                    <span id="historyCount">0 codes</span>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-state">
+                        No codes generated yet
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="email-monitor.js"></script>
+</body>
+</html>
