@@ -33,8 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: 
- !important;
+    color: #e2e8f0 !important;
     width: 100%;
     color-scheme: dark !important;
 }
@@ -55,8 +54,7 @@ body {
 .welcome-header p {
     font-size: 0.9rem;
     font-weight: 600;
-    color: 
- !important;
+    color: #cbd5e1 !important;
     margin: 0;
     text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
@@ -106,8 +104,7 @@ body {
  0%, 
  100%) !important;
     color: white !important;
-    border-color: 
-;
+    border-color: #3b82f6;
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
 }
 
@@ -141,7 +138,7 @@ body {
 }
 
 /* Cards */
-.main-card, .email-card, .history-card {
+.main-card, .email-card {
     background: 
  !important;
     border: 1px solid rgba(59, 130, 246, 0.5);
@@ -275,10 +272,19 @@ label {
 .totp-code {
     font-size: 2rem;
     font-weight: 700;
-    color: #3b82f6 !important;
+    color: 
+ !important;
     font-family: 'Courier New', monospace;
     letter-spacing: 8px;
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+}
+
+.time-remaining {
+    font-size: 0.75rem;
+    color: 
+ !important;
+    margin-top: 8px;
+    font-weight: 500;
 }
 
 /* Email Provider Badge */
@@ -323,7 +329,8 @@ label {
     transition: all 0.2s;
     font-family: 'Inter', sans-serif;
     background: white !important;
-    color: #1a1a1a !important;
+    color: 
+ !important;
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
 
@@ -504,8 +511,7 @@ label {
 .copy-code-btn {
     padding: 12px 24px;
     background: linear-gradient(135deg, 
- 0%, 
- 100%) !important;
+ 0%, #059669 100%) !important;
     color: white !important;
     border: none;
     border-radius: 10px;
@@ -559,133 +565,6 @@ label {
     box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
 }
 
-/* Copy Hint */
-.copy-hint {
-    text-align: center;
-    color: 
- !important;
-    font-weight: 600;
-    font-size: 0.875rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.copy-hint.show {
-    opacity: 1;
-}
-
-/* History Card */
-.history-card {
-    max-height: 500px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid rgba(59, 130, 246, 0.4);
-}
-
-.history-header h2 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: 
- !important;
-}
-
-#historyCount {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: 
- !important;
-    background: rgba(10, 10, 10, 0.9) !important;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-}
-
-.history-list {
-    overflow-y: auto;
-    max-height: 400px;
-}
-
-.history-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.history-list::-webkit-scrollbar-track {
-    background: rgba(10, 10, 10, 0.9);
-    border-radius: 10px;
-}
-
-.history-list::-webkit-scrollbar-thumb {
-    background: 
-;
-    border-radius: 10px;
-}
-
-.empty-state {
-    text-align: center;
-    color: 
- !important;
-    padding: 40px 20px;
-    font-size: 0.9rem;
-}
-
-/* History Item */
-.history-item {
-    padding: 16px;
-    background: rgba(10, 10, 10, 0.9) !important;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    transition: all 0.2s;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    align-items: center;
-}
-
-.history-item:hover {
-    background: rgba(10, 10, 10, 1) !important;
-    border-color: rgba(59, 130, 246, 0.6);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-}
-
-.history-code {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: 
- !important;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 3px;
-}
-
-.history-details {
-    text-align: right;
-}
-
-.history-key {
-    font-size: 0.75rem;
-    color: 
- !important;
-    font-family: 'Courier New', monospace;
-    word-break: break-all;
-    margin-bottom: 4px;
-}
-
-.history-time {
-    font-size: 0.7rem;
-    color: 
- !important;
-    font-weight: 500;
-}
-
 /* Mobile Responsive */
 @media (max-width: 600px) {
     .welcome-header {
@@ -714,7 +593,7 @@ label {
         padding: 0 16px 30px 16px;
     }
     
-    .main-card, .email-card, .history-card {
+    .main-card, .email-card {
         padding: 24px 20px;
     }
     
