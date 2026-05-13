@@ -1,6 +1,28 @@
-/* ========== EMAIL PAGE PREMIUM STYLES ========== */
+/* ========== MAIL PAGE ONLY - NEW STYLES ========== */
 
-/* Email Display Box - Premium */
+/* Clear Button Small */
+.clear-btn-small {
+    padding: 16px 18px;
+    background: linear-gradient(135deg, 
+ 0%, 
+ 100%) !important;
+    color: white !important;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+    min-width: 52px;
+}
+
+.clear-btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.8);
+}
+
+/* Email Display Box */
 .email-display-box {
     background: white !important;
     border: 2px solid rgba(59, 130, 246, 0.5);
@@ -57,7 +79,7 @@
     border-radius: 8px;
 }
 
-/* Code Display Box - Premium Green */
+/* Code Display Box */
 .email-code-box {
     background: white !important;
     border: 2px solid 
@@ -133,7 +155,7 @@
     font-weight: 500;
 }
 
-/* Cancel Monitor Button - Premium Red */
+/* Cancel Monitor Button */
 .cancel-monitor-btn {
     width: 100%;
     padding: 14px;
@@ -159,8 +181,14 @@
     box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
 }
 
-/* Mobile Responsive for Email Page */
+/* Mobile Responsive - Mail Page Only */
 @media (max-width: 600px) {
+    .clear-btn-small {
+        padding: 14px 16px;
+        min-width: 48px;
+        font-size: 0.9rem;
+    }
+    
     .verification-code {
         font-size: 1.6rem;
         letter-spacing: 6px;
@@ -176,8 +204,8 @@
         padding: 12px;
         font-size: 0.85rem;
     }
-    }
     
     .extracted-email-text {
         font-size: 0.85rem;
     }
+}
