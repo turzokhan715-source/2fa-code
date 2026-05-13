@@ -1,22 +1,37 @@
+// Email monitoring variables
 let emailCheckInterval = null;
 let lastCheckedCode = null;
 let currentEmailCode = null;
 let currentExtractedEmail = null;
 
-// Email input listener - AUTO START
-document.getElementById('emailInput').addEventListener('input', function(e) {
-    const email = e.target.value.trim();
+// Initialize email monitoring on page load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Email monitor loaded successfully');
     
-    if (email && isValidEmail(email)) {
-        startEmailMonitoring(email);
-    } else {
-        stopEmailMonitoring();
+    // Reset monitoring state
+    localStorage.removeItem('emailMonitorStart');
+    
+    // Email input listener - AUTO START
+    const emailInput = document.getElementById('emailInput');
+    if (emailInput) {
+        emailInput.addEventListener('input', function(e) {
+            const email = e.target.value.trim();
+            
+            if (email && isValidEmail(email)) {
+                startEmailMonitoring(email);
+            } else {
+                stopEmailMonitoring();
+            }
+        });
     }
 });
 
 // Clear email function
 function clearEmail() {
-    document.getElementById('emailInput').value = '';
+    const emailInput = document.getElementById('emailInput');
+    if (emailInput) {
+        emailInput.value = '';
+    }
     stopEmailMonitoring();
 }
 
@@ -26,18 +41,20 @@ function copyExtractedEmail() {
         copyToClipboard(currentExtractedEmail);
         
         const btn = document.querySelector('.copy-email-btn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✓ Copied!';
-        btn.style.background = 'linear-gradient(135deg, 
- 0%, 
- 100%)';
-        
-        setTimeout(() => {
-            btn.innerHTML = originalText;
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ Copied!';
             btn.style.background = 'linear-gradient(135deg, 
  0%, 
  100%)';
-        }, 2000);
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = 'linear-gradient(135deg, 
+ 0%, 
+ 100%)';
+            }, 2000);
+        }
     }
 }
 
@@ -47,24 +64,30 @@ function copyEmailCode() {
         copyToClipboard(currentEmailCode);
         
         const btn = document.querySelector('.copy-code-btn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '✓ Copied!';
-        
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-        }, 2000);
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ Copied!';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
     }
 }
 
 // Cancel monitoring
 function cancelMonitoring() {
     stopEmailMonitoring();
-    document.getElementById('emailInput').value = '';
+    const emailInput = document.getElementById('emailInput');
+    if (emailInput) {
+        emailInput.value = '';
+    }
 }
 
 // Validate email
 function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 // Start monitoring
@@ -73,11 +96,21 @@ function startEmailMonitoring(email) {
     
     // Show extracted email
     currentExtractedEmail = email;
-    document.getElementById('extractedEmail').textContent = email;
-    document.getElementById('emailDisplayBox').style.display = 'block';
+    const extractedEmailEl = document.getElementById('extractedEmail');
+    const emailDisplayBox = document.getElementById('emailDisplayBox');
+    const cancelBtn = document.getElementById('cancelMonitorBtn');
     
-    // Show cancel button
-    document.getElementById('cancelMonitorBtn').style.display = 'flex';
+    if (extractedEmailEl) {
+        extractedEmailEl.textContent = email;
+    }
+    
+    if (emailDisplayBox) {
+        emailDisplayBox.style.display = 'block';
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.style.display = 'flex';
+    }
     
     // Update status
     updateEmailStatus('monitoring', '🔄 Monitoring Hotmail/Outlook...');
@@ -98,12 +131,27 @@ function stopEmailMonitoring() {
     }
     
     updateEmailStatus('idle', 'Enter email to start monitoring');
-    document.getElementById('emailDisplayBox').style.display = 'none';
-    document.getElementById('emailCodeDisplay').style.display = 'none';
-    document.getElementById('cancelMonitorBtn').style.display = 'none';
+    
+    const emailDisplayBox = document.getElementById('emailDisplayBox');
+    const emailCodeDisplay = document.getElementById('emailCodeDisplay');
+    const cancelBtn = document.getElementById('cancelMonitorBtn');
+    
+    if (emailDisplayBox) {
+        emailDisplayBox.style.display = 'none';
+    }
+    
+    if (emailCodeDisplay) {
+        emailCodeDisplay.style.display = 'none';
+    }
+    
+    if (cancelBtn) {
+        cancelBtn.style.display = 'none';
+    }
+    
     localStorage.removeItem('emailMonitorStart');
     currentEmailCode = null;
     currentExtractedEmail = null;
+    lastCheckedCode = null;
 }
 
 // Check email for code (DEMO)
@@ -140,9 +188,21 @@ function generateRandomCode() {
 
 // Display email code
 function displayEmailCode(code) {
-    document.getElementById('emailCode').textContent = code;
-    document.getElementById('codeTime').textContent = `Received at ${new Date().toLocaleTimeString()}`;
-    document.getElementById('emailCodeDisplay').style.display = 'block';
+    const emailCodeEl = document.getElementById('emailCode');
+    const codeTimeEl = document.getElementById('codeTime');
+    const emailCodeDisplay = document.getElementById('emailCodeDisplay');
+    
+    if (emailCodeEl) {
+        emailCodeEl.textContent = code;
+    }
+    
+    if (codeTimeEl) {
+        codeTimeEl.textContent = `Received at ${new Date().toLocaleTimeString()}`;
+    }
+    
+    if (emailCodeDisplay) {
+        emailCodeDisplay.style.display = 'block';
+    }
 }
 
 // Update status
@@ -150,16 +210,26 @@ function updateEmailStatus(type, text) {
     const statusEl = document.getElementById('emailStatus');
     const statusText = document.getElementById('statusText');
     
+    if (!statusEl || !statusText) return;
+    
     statusEl.className = 'email-status';
+    
+    const statusIcon = statusEl.querySelector('.status-icon');
     
     if (type === 'monitoring') {
         statusEl.classList.add('monitoring');
-        statusEl.querySelector('.status-icon').textContent = '🔄';
+        if (statusIcon) {
+            statusIcon.textContent = '🔄';
+        }
     } else if (type === 'found') {
         statusEl.classList.add('found');
-        statusEl.querySelector('.status-icon').textContent = '✓';
+        if (statusIcon) {
+            statusIcon.textContent = '✓';
+        }
     } else {
-        statusEl.querySelector('.status-icon').textContent = '⏳';
+        if (statusIcon) {
+            statusIcon.textContent = '⏳';
+        }
     }
     
     statusText.textContent = text;
@@ -168,21 +238,36 @@ function updateEmailStatus(type, text) {
 // Copy to clipboard helper
 function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Copied to clipboard:', text);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            fallbackCopy(text);
+        });
     } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        fallbackCopy(text);
     }
 }
 
-// Reset on load
-document.addEventListener('DOMContentLoaded', function() {
-    localStorage.removeItem('emailMonitorStart');
-});
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        console.log('Copied using fallback method');
+    } catch (err) {
+        console.error('Fallback copy failed:', err);
+    }
+    document.body.removeChild(textarea);
+}
 
+// Clean up on page unload
+window.addEventListener('beforeunload', function() {
+    if (emailCheckInterval) {
+        clearInterval(emailCheckInterval);
+    }
+});
