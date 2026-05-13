@@ -3,7 +3,7 @@ let lastCheckedCode = null;
 let currentEmailCode = null;
 let currentExtractedEmail = null;
 
-// Email input listener
+// Email input listener - AUTO START
 document.getElementById('emailInput').addEventListener('input', function(e) {
     const email = e.target.value.trim();
     
@@ -14,7 +14,7 @@ document.getElementById('emailInput').addEventListener('input', function(e) {
     }
 });
 
-// Clear email
+// Clear email function
 function clearEmail() {
     document.getElementById('emailInput').value = '';
     stopEmailMonitoring();
@@ -41,7 +41,7 @@ function copyExtractedEmail() {
     }
 }
 
-// Copy email code
+// Copy email code function
 function copyEmailCode() {
     if (currentEmailCode) {
         copyToClipboard(currentEmailCode);
@@ -71,13 +71,18 @@ function isValidEmail(email) {
 function startEmailMonitoring(email) {
     stopEmailMonitoring();
     
+    // Show extracted email
     currentExtractedEmail = email;
     document.getElementById('extractedEmail').textContent = email;
     document.getElementById('emailDisplayBox').style.display = 'block';
+    
+    // Show cancel button
     document.getElementById('cancelMonitorBtn').style.display = 'flex';
     
+    // Update status
     updateEmailStatus('monitoring', '🔄 Monitoring Hotmail/Outlook...');
     
+    // Start checking
     emailCheckInterval = setInterval(() => {
         checkEmailForCode(email);
     }, 1000);
@@ -112,6 +117,7 @@ function checkEmailForCode(email) {
     
     const elapsed = now - startTime;
     
+    // DEMO: Show code after 10 seconds
     if (elapsed > 10000) {
         const code = generateRandomCode();
         
@@ -119,11 +125,11 @@ function checkEmailForCode(email) {
             lastCheckedCode = code;
             currentEmailCode = code;
             displayEmailCode(code);
-            updateEmailStatus('found', '✓ Code found!');
+            updateEmailStatus('found', '✓ Code found in Hotmail/Outlook!');
         }
     } else {
         const remaining = Math.ceil((10000 - elapsed) / 1000);
-        updateEmailStatus('monitoring', `🔄 Checking... (${remaining}s)`);
+        updateEmailStatus('monitoring', `🔄 Checking Hotmail/Outlook... (${remaining}s)`);
     }
 }
 
@@ -159,7 +165,7 @@ function updateEmailStatus(type, text) {
     statusText.textContent = text;
 }
 
-// Copy to clipboard
+// Copy to clipboard helper
 function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text);
