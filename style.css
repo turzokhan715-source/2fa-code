@@ -1,3 +1,5 @@
+/* ========== EMAIL PAGE PREMIUM STYLES ========== */
+
 /* Email Display Box - Premium */
 .email-display-box {
     background: white !important;
@@ -55,7 +57,7 @@
     border-radius: 8px;
 }
 
-/* Code Display Box - Premium */
+/* Code Display Box - Premium Green */
 .email-code-box {
     background: white !important;
     border: 2px solid 
@@ -131,7 +133,7 @@
     font-weight: 500;
 }
 
-/* Cancel Monitor Button - Premium */
+/* Cancel Monitor Button - Premium Red */
 .cancel-monitor-btn {
     width: 100%;
     padding: 14px;
@@ -157,7 +159,7 @@
     box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
 }
 
-/* Mobile Responsive */
+/* Mobile Responsive for Email Page */
 @media (max-width: 600px) {
     .verification-code {
         font-size: 1.6rem;
@@ -174,4 +176,8 @@
         padding: 12px;
         font-size: 0.85rem;
     }
-}
+    }
+    
+    .extracted-email-text {
+        font-size: 0.85rem;
+    }
