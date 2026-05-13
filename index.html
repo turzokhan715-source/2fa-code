@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <p>🔐 Secure Authentication Portal - Generate codes instantly</p>
+    </div>
+
     <div class="container">
         <!-- 2FA Section -->
         <div class="main-card">
@@ -31,7 +36,7 @@
                 >
             </div>
             
-            <button id="generateBtn" onclick="generateCode()">
+            <button id="generateBtn" class="generate-btn" onclick="generateCode()">
                 <span class="btn-icon">🔑</span>
                 <span class="btn-text">Generate Code</span>
             </button>
@@ -49,27 +54,31 @@
         <div class="email-card">
             <div class="card-header">
                 <h1>📧 Email Verification</h1>
-                <p>Auto-fetch verification codes from your email</p>
+                <p>Auto-fetch verification codes from Hotmail/Outlook</p>
             </div>
             
-            <!-- Gmail/Hotmail Tabs -->
-            <div class="email-tabs">
-                <button class="tab-btn active" onclick="switchEmailTab('gmail')">
-                    <span class="tab-icon">📧</span> Gmail
-                </button>
-                <button class="tab-btn" onclick="switchEmailTab('hotmail')">
-                    <span class="tab-icon">📨</span> Hotmail/Outlook
-                </button>
+            <!-- Hotmail/Outlook Only -->
+            <div class="email-provider">
+                <div class="provider-badge">
+                    <span class="provider-icon">📨</span>
+                    <span class="provider-name">Hotmail / Outlook</span>
+                </div>
             </div>
             
             <div class="input-group">
-                <label for="emailInput">Enter your email address:</label>
-                <input 
-                    type="email" 
-                    id="emailInput" 
-                    placeholder="your.email@gmail.com"
-                    autocomplete="email"
-                >
+                <label for="emailInput">Enter your full email address:</label>
+                <div class="email-input-wrapper">
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        class="email-input-large"
+                        placeholder="your.email@hotmail.com"
+                        autocomplete="email"
+                    >
+                    <button class="clear-btn" onclick="clearEmail()" title="Clear email">
+                        ✕
+                    </button>
+                </div>
             </div>
             
             <div id="emailStatus" class="email-status">
@@ -77,11 +86,18 @@
                 <span id="statusText">Enter email to start monitoring</span>
             </div>
             
-            <!-- Email Code Display -->
-            <div id="emailCodeDisplay" class="email-code-display" style="display: none;">
-                <div class="code-label">Latest Code:</div>
-                <div id="emailCode" class="email-code">------</div>
-                <div class="code-time" id="codeTime">Checking...</div>
+            <!-- Email Code Display - Small Box -->
+            <div id="emailCodeDisplay" class="email-code-display-small" style="display: none;">
+                <div class="code-row">
+                    <div class="code-info">
+                        <div class="code-label-small">Code:</div>
+                        <div id="emailCode" class="email-code-small">------</div>
+                    </div>
+                    <button class="copy-code-btn" onclick="copyEmailCode()" title="Copy code">
+                        📋 Copy
+                    </button>
+                </div>
+                <div class="code-time-small" id="codeTime">Checking...</div>
             </div>
         </div>
 
