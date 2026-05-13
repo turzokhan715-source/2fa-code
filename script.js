@@ -1,4 +1,4 @@
-// Tab Navigation
+/ Tab Navigation
 function switchTab(tabName) {
     // Hide all pages
     document.querySelectorAll('.page-content').forEach(page => {
