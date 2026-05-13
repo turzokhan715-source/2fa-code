@@ -9,7 +9,7 @@
 <body>
     <!-- Welcome Header -->
     <div class="welcome-header">
-        <p>🔐 Secure Authentication Portal - Generate codes instantly</p>
+        <p>🔐 Secure Authentication Portal — Generate codes instantly</p>
     </div>
 
     <!-- Navigation Tabs -->
@@ -22,11 +22,14 @@
             <span class="nav-icon">📧</span>
             <span class="nav-text">Mail Code Generator</span>
         </button>
+        <button class="nav-btn" onclick="switchTab('History')">
+            <span class="nav-icon">📜</span>
+            <span class="nav-text">Recent Codes</span>
+        </button>
     </div>
 
     <!-- Container -->
     <div class="container">
-        
         <!-- 2FA Authenticator Page -->
         <div id="page2FA" class="page-content active">
             <div class="main-card">
@@ -55,6 +58,15 @@
                     <div class="code-label">YOUR 2FA CODE</div>
                     <div id="totpCode" class="totp-code">------</div>
                     <div id="timeRemaining" class="time-remaining">Valid for 30s</div>
+                </div>
+
+                <!-- History Section -->
+                <div id="historySection" class="history-section" style="display: none;">
+                    <div class="history-header-small">
+                        <span class="history-title">📜 Recent Codes</span>
+                        <span id="historyCount2FA" class="history-count-badge">0</span>
+                    </div>
+                    <div id="historyList2FA" class="history-list-small"></div>
                 </div>
             </div>
         </div>
@@ -92,15 +104,17 @@
                     </div>
                 </div>
                 
-                <!-- Email Display Box -->
+                <!-- Email Display Box (Shows after email entered) -->
                 <div id="emailDisplayBox" class="email-display-box" style="display: none;">
-                    <div class="email-display-header">
-                        <span class="email-label">📧 Extracted Email:</span>
-                        <button class="copy-email-btn" onclick="copyExtractedEmail()">
-                            📋 Copy
+                    <div class="email-display-content">
+                        <div class="email-display-left">
+                            <span class="email-label">📧 Extracted Email:</span>
+                            <div id="extractedEmail" class="extracted-email-text"></div>
+                        </div>
+                        <button class="cancel-email-btn" onclick="cancelMonitoring()">
+                            ✕ Cancel
                         </button>
                     </div>
-                    <div id="extractedEmail" class="extracted-email-text"></div>
                 </div>
                 
                 <!-- Status -->
@@ -124,14 +138,28 @@
                         <span id="codeTime" class="code-timestamp">Waiting...</span>
                     </div>
                 </div>
-                
-                <!-- Cancel Button -->
-                <button id="cancelMonitorBtn" class="cancel-monitor-btn" onclick="cancelMonitoring()" style="display: none;">
-                    ✕ Cancel Monitoring
-                </button>
+
+                <!-- History Section -->
+                <div id="emailHistorySection" class="history-section" style="display: none;">
+                    <div class="history-header-small">
+                        <span class="history-title">📜 Recent Codes</span>
+                        <span id="historyCountEmail" class="history-count-badge">0</span>
+                    </div>
+                    <div id="historyListEmail" class="history-list-small"></div>
+                </div>
             </div>
         </div>
 
+        <!-- Recent Codes Page -->
+        <div id="pageHistory" class="page-content">
+            <div class="history-card">
+                <div class="history-header">
+                    <h2>📜 Recent Codes</h2>
+                    <span id="historyCountAll" class="history-count-badge">0</span>
+                </div>
+                <div id="historyListAll" class="history-list"></div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
