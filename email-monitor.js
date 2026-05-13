@@ -1,74 +1,187 @@
-<!-- Email Page -->
-<div id="pageEmail" class="page-content">
-    <div class="email-card">
-        <div class="card-header">
-            <h1>📧 Mail Code Generator</h1>
-            <p>Auto-fetch verification codes from Hotmail/Outlook</p>
-        </div>
+let emailCheckInterval = null;
+let lastCheckedCode = null;
+let currentEmailCode = null;
+let currentExtractedEmail = null;
+
+// Email input listener - AUTO START
+document.getElementById('emailInput').addEventListener('input', function(e) {
+    const email = e.target.value.trim();
+    
+    if (email && isValidEmail(email)) {
+        startEmailMonitoring(email);
+    } else {
+        stopEmailMonitoring();
+    }
+});
+
+// Clear email function
+function clearEmail() {
+    document.getElementById('emailInput').value = '';
+    stopEmailMonitoring();
+}
+
+// Copy extracted email
+function copyExtractedEmail() {
+    if (currentExtractedEmail) {
+        copyToClipboard(currentExtractedEmail);
         
-        <!-- Hotmail Badge -->
-        <div class="email-provider">
-            <div class="provider-badge">
-                <span class="provider-icon">📨</span>
-                <span class="provider-name">Hotmail / Outlook</span>
-            </div>
-        </div>
+        const btn = document.querySelector('.copy-email-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        btn.style.background = 'linear-gradient(135deg, 
+ 0%, 
+ 100%)';
         
-        <!-- Email Input Section -->
-        <div class="input-group">
-            <label for="emailInput">ENTER YOUR EMAIL</label>
-            <div class="email-input-wrapper">
-                <input 
-                    type="email" 
-                    id="emailInput" 
-                    class="email-input-large"
-                    placeholder="your.email@hotmail.com"
-                    autocomplete="email"
-                >
-                <button class="clear-btn" onclick="clearEmail()" title="Clear email">
-                    ✕
-                </button>
-            </div>
-        </div>
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = 'linear-gradient(135deg, 
+ 0%, 
+ 100%)';
+        }, 2000);
+    }
+}
+
+// Copy email code function
+function copyEmailCode() {
+    if (currentEmailCode) {
+        copyToClipboard(currentEmailCode);
         
-        <!-- Email Display Box (Hidden by default) -->
-        <div id="emailDisplayBox" class="email-display-box" style="display: none;">
-            <div class="email-display-header">
-                <span class="email-label">📧 Extracted Email:</span>
-                <button class="copy-email-btn" onclick="copyExtractedEmail()" title="Copy email">
-                    📋 Copy
-                </button>
-            </div>
-            <div id="extractedEmail" class="extracted-email-text">
-                email@example.com
-            </div>
-        </div>
+        const btn = document.querySelector('.copy-code-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
         
-        <!-- Status -->
-        <div id="emailStatus" class="email-status">
-            <span class="status-icon">⏳</span>
-            <span id="statusText">Enter email to start monitoring</span>
-        </div>
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+        }, 2000);
+    }
+}
+
+// Cancel monitoring
+function cancelMonitoring() {
+    stopEmailMonitoring();
+    document.getElementById('emailInput').value = '';
+}
+
+// Validate email
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Start monitoring
+function startEmailMonitoring(email) {
+    stopEmailMonitoring();
+    
+    // Show extracted email
+    currentExtractedEmail = email;
+    document.getElementById('extractedEmail').textContent = email;
+    document.getElementById('emailDisplayBox').style.display = 'block';
+    
+    // Show cancel button
+    document.getElementById('cancelMonitorBtn').style.display = 'flex';
+    
+    // Update status
+    updateEmailStatus('monitoring', 'Monitoring Hotmail/Outlook...');
+    
+    // Start checking
+    emailCheckInterval = setInterval(() => {
+        checkEmailForCode(email);
+    }, 1000);
+    
+    checkEmailForCode(email);
+}
+
+// Stop monitoring
+function stopEmailMonitoring() {
+    if (emailCheckInterval) {
+        clearInterval(emailCheckInterval);
+        emailCheckInterval = null;
+    }
+    
+    updateEmailStatus('idle', 'Enter email to start monitoring');
+    document.getElementById('emailDisplayBox').style.display = 'none';
+    document.getElementById('emailCodeDisplay').style.display = 'none';
+    document.getElementById('cancelMonitorBtn').style.display = 'none';
+    localStorage.removeItem('emailMonitorStart');
+    currentEmailCode = null;
+    currentExtractedEmail = null;
+}
+
+// Check email for code (DEMO)
+function checkEmailForCode(email) {
+    const now = Date.now();
+    const startTime = parseInt(localStorage.getItem('emailMonitorStart') || now);
+    
+    if (!localStorage.getItem('emailMonitorStart')) {
+        localStorage.setItem('emailMonitorStart', now);
+    }
+    
+    const elapsed = now - startTime;
+    
+    // DEMO: Show code after 10 seconds
+    if (elapsed > 10000) {
+        const code = generateRandomCode();
         
-        <!-- Code Display Box (Hidden by default) -->
-        <div id="emailCodeDisplay" class="email-code-box" style="display: none;">
-            <div class="code-box-header">
-                <span class="code-box-label">🔑 Verification Code:</span>
-            </div>
-            <div class="code-box-content">
-                <div id="emailCode" class="verification-code">------</div>
-                <button class="copy-code-btn" onclick="copyEmailCode()">
-                    📋 Copy Code
-                </button>
-            </div>
-            <div class="code-box-footer">
-                <span id="codeTime" class="code-timestamp">Waiting for code...</span>
-            </div>
-        </div>
-        
-        <!-- Cancel Button -->
-        <button id="cancelMonitorBtn" class="cancel-monitor-btn" onclick="cancelMonitoring()" style="display: none;">
-            ✕ Cancel Monitoring
-        </button>
-    </div>
-</div>
+        if (code !== lastCheckedCode) {
+            lastCheckedCode = code;
+            currentEmailCode = code;
+            displayEmailCode(code);
+            updateEmailStatus('found', '✓ Code found in Hotmail/Outlook!');
+        }
+    } else {
+        const remaining = Math.ceil((10000 - elapsed) / 1000);
+        updateEmailStatus('monitoring', `Checking Hotmail/Outlook... (${remaining}s)`);
+    }
+}
+
+// Generate random code
+function generateRandomCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// Display email code
+function displayEmailCode(code) {
+    document.getElementById('emailCode').textContent = code;
+    document.getElementById('codeTime').textContent = `Received at ${new Date().toLocaleTimeString()}`;
+    document.getElementById('emailCodeDisplay').style.display = 'block';
+}
+
+// Update status
+function updateEmailStatus(type, text) {
+    const statusEl = document.getElementById('emailStatus');
+    const statusText = document.getElementById('statusText');
+    
+    statusEl.className = 'email-status';
+    
+    if (type === 'monitoring') {
+        statusEl.classList.add('monitoring');
+        statusEl.querySelector('.status-icon').textContent = '🔄';
+    } else if (type === 'found') {
+        statusEl.classList.add('found');
+        statusEl.querySelector('.status-icon').textContent = '✓';
+    } else {
+        statusEl.querySelector('.status-icon').textContent = '⏳';
+    }
+    
+    statusText.textContent = text;
+}
+
+// Copy to clipboard helper
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+    } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+}
+
+// Reset on load
+document.addEventListener('DOMContentLoaded', function() {
+    localStorage.removeItem('emailMonitorStart');
+});
