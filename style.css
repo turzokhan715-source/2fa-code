@@ -275,8 +275,7 @@ label {
 .totp-code {
     font-size: 2rem;
     font-weight: 700;
-    color: 
- !important;
+    color: #3b82f6 !important;
     font-family: 'Courier New', monospace;
     letter-spacing: 8px;
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
@@ -324,8 +323,7 @@ label {
     transition: all 0.2s;
     font-family: 'Inter', sans-serif;
     background: white !important;
-    color: 
- !important;
+    color: #1a1a1a !important;
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
 
@@ -401,8 +399,6 @@ label {
  !important;
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
 }
-
-/* ========== MAIL PAGE NEW STYLES ========== */
 
 /* Email Display Box */
 .email-display-box {
@@ -561,6 +557,21 @@ label {
 .cancel-monitor-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
+}
+
+/* Copy Hint */
+.copy-hint {
+    text-align: center;
+    color: 
+ !important;
+    font-weight: 600;
+    font-size: 0.875rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.copy-hint.show {
+    opacity: 1;
 }
 
 /* History Card */
