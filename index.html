@@ -7,32 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Welcome Header -->
-    <div class="welcome-header">
-        <p>🔐 Secure Authentication Portal — Generate codes instantly</p>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <div class="nav-tabs">
-        <button class="nav-btn active" onclick="switchTab('2FA')">
-            <span class="nav-icon">🔐</span>
-            <span class="nav-text">2FA Authenticator</span>
-        </button>
-        <button class="nav-btn" onclick="switchTab('Email')">
-            <span class="nav-icon">📧</span>
-            <span class="nav-text">Mail Code Generator</span>
-        </button>
-        <button class="nav-btn" onclick="switchTab('History')">
-            <span class="nav-icon">📜</span>
-            <span class="nav-text">Recent Codes</span>
-        </button>
-    </div>
-
-    <!-- Container -->
     <div class="container">
-        <!-- 2FA Authenticator Page -->
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">🔐 Secure Authentication Portal</h1>
+                <p class="header-subtitle">Generate codes instantly</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="switchTab('2FA')">
+                <span class="nav-icon">🔐</span>
+                <span class="nav-text">2FA Authenticator</span>
+            </button>
+            <button class="nav-btn" onclick="switchTab('Email')">
+                <span class="nav-icon">📧</span>
+                <span class="nav-text">Mail Code Generator</span>
+            </button>
+            <button class="nav-btn" onclick="switchTab('History')">
+                <span class="nav-icon">📜</span>
+                <span class="nav-text">Recent Codes</span>
+            </button>
+        </div>
+
+        <!-- 2FA Page -->
         <div id="page2FA" class="page-content active">
-            <div class="main-card">
+            <div class="auth-card">
                 <div class="card-header">
                     <h1>🔐 2FA Authenticator</h1>
                     <p>Secure Time-Based One-Time Password Generator</p>
@@ -44,29 +46,19 @@
                         type="text" 
                         id="secretKey" 
                         class="input-white"
-                        placeholder="Enter your secret key..."
+                        placeholder="Enter your 2FA secret key..."
                         autocomplete="off"
                     >
                 </div>
                 
                 <button class="generate-btn-blue" onclick="generateTOTP()">
-                    <span class="btn-icon">🔑</span>
-                    <span>Generate Code</span>
+                    🔑 Generate Code
                 </button>
                 
+                <!-- Code Display -->
                 <div id="codeDisplay" class="code-display" style="display: none;">
-                    <div class="code-label">YOUR 2FA CODE</div>
                     <div id="totpCode" class="totp-code">------</div>
                     <div id="timeRemaining" class="time-remaining">Valid for 30s</div>
-                </div>
-
-                <!-- History Section -->
-                <div id="historySection" class="history-section" style="display: none;">
-                    <div class="history-header-small">
-                        <span class="history-title">📜 Recent Codes</span>
-                        <span id="historyCount2FA" class="history-count-badge">0</span>
-                    </div>
-                    <div id="historyList2FA" class="history-list-small"></div>
                 </div>
             </div>
         </div>
@@ -106,13 +98,13 @@
                 
                 <!-- Email Display Box (Shows after email entered) -->
                 <div id="emailDisplayBox" class="email-display-box" style="display: none;">
+                    <div class="email-display-header">
+                        <span class="email-label">📧 Monitoring Email:</span>
+                    </div>
                     <div class="email-display-content">
-                        <div class="email-display-left">
-                            <span class="email-label">📧 Extracted Email:</span>
-                            <div id="extractedEmail" class="extracted-email-text"></div>
-                        </div>
-                        <button class="cancel-email-btn" onclick="cancelMonitoring()">
-                            ✕ Cancel
+                        <div id="extractedEmail" class="extracted-email-text"></div>
+                        <button class="copy-email-btn" onclick="copyExtractedEmail()">
+                            📋 Copy
                         </button>
                     </div>
                 </div>
@@ -138,26 +130,23 @@
                         <span id="codeTime" class="code-timestamp">Waiting...</span>
                     </div>
                 </div>
-
-                <!-- History Section -->
-                <div id="emailHistorySection" class="history-section" style="display: none;">
-                    <div class="history-header-small">
-                        <span class="history-title">📜 Recent Codes</span>
-                        <span id="historyCountEmail" class="history-count-badge">0</span>
-                    </div>
-                    <div id="historyListEmail" class="history-list-small"></div>
-                </div>
             </div>
         </div>
 
-        <!-- Recent Codes Page -->
+        <!-- Recent Codes Page (History) -->
         <div id="pageHistory" class="page-content">
             <div class="history-card">
-                <div class="history-header">
-                    <h2>📜 Recent Codes</h2>
-                    <span id="historyCountAll" class="history-count-badge">0</span>
+                <div class="card-header">
+                    <h1>📜 Recent Codes</h1>
+                    <p>Your recently generated 2FA codes</p>
                 </div>
-                <div id="historyListAll" class="history-list"></div>
+                <div class="history-header">
+                    <h3>2FA Codes History</h3>
+                    <span id="historyCount" class="history-count">0 codes</span>
+                </div>
+                <div id="historyList" class="history-list">
+                    <div class="empty-state">No codes generated yet</div>
+                </div>
             </div>
         </div>
     </div>
