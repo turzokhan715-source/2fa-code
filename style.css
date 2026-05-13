@@ -1,12 +1,20 @@
+/* FORCE BLACK - OVERRIDE ALL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* FORCE DARK MODE - ALWAYS (Ignore System Settings) */
+:root {
+    background: 
+ !important;
+    color-scheme: dark !important;
+}
+
 html {
     background: 
+ !important;
+    background-color: 
  !important;
     min-height: 100vh;
     width: 100%;
@@ -16,6 +24,8 @@ html {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: 
+ !important;
+    background-color: 
  !important;
     min-height: 100vh;
     padding: 0;
@@ -117,6 +127,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: transparent !important;
 }
 
 /* Page Content */
@@ -469,7 +480,6 @@ label {
     font-size: 0.875rem;
     opacity: 0;
     transition: opacity 0.3s;
-    text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
 }
 
 .copy-hint.show {
@@ -498,7 +508,6 @@ label {
     font-weight: 700;
     color: 
  !important;
-    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
 #historyCount {
@@ -510,7 +519,6 @@ label {
     padding: 4px 12px;
     border-radius: 20px;
     border: 1px solid rgba(59, 130, 246, 0.4);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
 }
 
 .history-list {
@@ -531,7 +539,6 @@ label {
     background: 
 ;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
 }
 
 .empty-state {
@@ -554,7 +561,6 @@ label {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     align-items: center;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
 }
 
 .history-item:hover {
@@ -570,7 +576,6 @@ label {
  !important;
     font-family: 'Courier New', monospace;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
 .history-details {
@@ -593,7 +598,7 @@ label {
     font-weight: 500;
 }
 
-/* Responsive - Mobile (BETTER) */
+/* Mobile Responsive */
 @media (max-width: 600px) {
     .welcome-header {
         padding: 10px 16px;
@@ -611,11 +616,6 @@ label {
     .nav-btn {
         padding: 12px 12px;
         font-size: 0.85rem;
-        gap: 6px;
-    }
-    
-    .nav-icon {
-        font-size: 1rem;
     }
     
     .nav-text {
@@ -628,19 +628,10 @@ label {
     
     .main-card, .email-card, .history-card {
         padding: 24px 20px;
-        border-radius: 20px;
-    }
-    
-    .card-header {
-        margin-bottom: 24px;
     }
     
     .card-header h1 {
         font-size: 1.4rem;
-    }
-    
-    .card-header p {
-        font-size: 0.8rem;
     }
     
     .input-white {
@@ -651,10 +642,6 @@ label {
     .generate-btn-blue {
         padding: 14px;
         font-size: 0.95rem;
-    }
-    
-    .code-display {
-        padding: 16px;
     }
     
     .totp-code {
@@ -670,50 +657,10 @@ label {
     .clear-btn {
         padding: 14px 14px;
         min-width: 48px;
-        font-size: 0.9rem;
-    }
-    
-    .email-code-display-small {
-        padding: 14px;
     }
     
     .email-code-small {
         font-size: 1.2rem;
         letter-spacing: 3px;
-    }
-    
-    .copy-btn {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-    }
-    
-    .history-item {
-        padding: 12px;
-        gap: 12px;
-    }
-    
-    .history-code {
-        font-size: 1rem;
-        letter-spacing: 2px;
-    }
-}
-
-/* Laptop/Desktop - Better View */
-@media (min-width: 1024px) {
-    .container {
-        max-width: 600px;
-    }
-    
-    .main-card, .email-card, .history-card {
-        padding: 48px;
-    }
-    
-    .card-header h1 {
-        font-size: 2rem;
-    }
-    
-    .totp-code {
-        font-size: 2.4rem;
-        letter-spacing: 10px;
     }
 }
