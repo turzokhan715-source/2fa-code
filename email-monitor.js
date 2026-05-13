@@ -80,7 +80,7 @@ function startEmailMonitoring(email) {
     document.getElementById('cancelMonitorBtn').style.display = 'flex';
     
     // Update status
-    updateEmailStatus('monitoring', 'Monitoring Hotmail/Outlook...');
+    updateEmailStatus('monitoring', '🔄 Monitoring Hotmail/Outlook...');
     
     // Start checking
     emailCheckInterval = setInterval(() => {
@@ -129,7 +129,7 @@ function checkEmailForCode(email) {
         }
     } else {
         const remaining = Math.ceil((10000 - elapsed) / 1000);
-        updateEmailStatus('monitoring', `Checking Hotmail/Outlook... (${remaining}s)`);
+        updateEmailStatus('monitoring', `🔄 Checking Hotmail/Outlook... (${remaining}s)`);
     }
 }
 
@@ -185,3 +185,4 @@ function copyToClipboard(text) {
 document.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem('emailMonitorStart');
 });
+
