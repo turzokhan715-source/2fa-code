@@ -33,7 +33,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #e2e8f0 !important;
+    color: 
+ !important;
     width: 100%;
     color-scheme: dark !important;
 }
@@ -41,8 +42,7 @@ body {
 /* Welcome Header */
 .welcome-header {
     width: 100%;
-    background: 
- !important;
+    background: #0a0a0a !important;
     backdrop-filter: blur(10px);
     padding: 12px 20px;
     text-align: center;
@@ -54,7 +54,8 @@ body {
 .welcome-header p {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #cbd5e1 !important;
+    color: 
+ !important;
     margin: 0;
     text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
@@ -65,7 +66,7 @@ body {
     gap: 12px;
     margin-bottom: 30px;
     padding: 0 20px;
-    max-width: 600px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -100,11 +101,11 @@ body {
 }
 
 .nav-btn.active {
-    background: linear-gradient(135deg, 
- 0%, 
+    background: linear-gradient(135deg, #3b82f6 0%, 
  100%) !important;
     color: white !important;
-    border-color: #3b82f6;
+    border-color: 
+;
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.7);
 }
 
@@ -138,7 +139,7 @@ body {
 }
 
 /* Cards */
-.main-card, .email-card {
+.main-card, .email-card, .history-card {
     background: 
  !important;
     border: 1px solid rgba(59, 130, 246, 0.5);
@@ -187,7 +188,7 @@ label {
     text-transform: uppercase;
 }
 
-/* Secret Key Input - WHITE */
+/* Secret Key Input - WHITE with BLACK TEXT */
 .input-white {
     width: 100%;
     padding: 14px 16px;
@@ -207,11 +208,23 @@ label {
     border-color: 
 ;
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+    color: 
+ !important;
 }
 
 .input-white::placeholder {
     color: 
  !important;
+}
+
+/* Force black text on autofill */
+.input-white:-webkit-autofill,
+.input-white:-webkit-autofill:hover,
+.input-white:-webkit-autofill:focus {
+    -webkit-text-fill-color: 
+ !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 /* Generate Button - BLUE */
@@ -277,14 +290,6 @@ label {
     font-family: 'Courier New', monospace;
     letter-spacing: 8px;
     text-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
-}
-
-.time-remaining {
-    font-size: 0.75rem;
-    color: 
- !important;
-    margin-top: 8px;
-    font-weight: 500;
 }
 
 /* Email Provider Badge */
@@ -379,8 +384,7 @@ label {
     gap: 10px;
     margin-bottom: 16px;
     font-size: 0.875rem;
-    color: 
- !important;
+    color: #94a3b8 !important;
     font-weight: 500;
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
@@ -407,7 +411,9 @@ label {
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
 }
 
-/* Email Display Box */
+/* ========== MAIL PAGE - UPDATED DESIGN ========== */
+
+/* Email Display Box - Horizontal Layout */
 .email-display-box {
     background: white !important;
     border: 2px solid rgba(59, 130, 246, 0.5);
@@ -417,11 +423,16 @@ label {
     box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
 }
 
-.email-display-header {
+.email-display-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 12px;
+}
+
+.email-display-left {
+    flex: 1;
+    min-width: 0;
 }
 
 .email-label {
@@ -430,26 +441,8 @@ label {
     color: 
  !important;
     text-transform: uppercase;
-}
-
-.copy-email-btn {
-    padding: 6px 12px;
-    background: linear-gradient(135deg, 
- 0%, 
- 100%) !important;
-    color: white !important;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-}
-
-.copy-email-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    display: block;
+    margin-bottom: 6px;
 }
 
 .extracted-email-text {
@@ -462,6 +455,29 @@ label {
     padding: 8px;
     background: rgba(59, 130, 246, 0.1);
     border-radius: 8px;
+}
+
+/* Cancel Email Button - Small Red */
+.cancel-email-btn {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, 
+ 0%, 
+ 100%) !important;
+    color: white !important;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.cancel-email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.7);
 }
 
 /* Code Display Box */
@@ -511,7 +527,8 @@ label {
 .copy-code-btn {
     padding: 12px 24px;
     background: linear-gradient(135deg, 
- 0%, #059669 100%) !important;
+ 0%, 
+ 100%) !important;
     color: white !important;
     border: none;
     border-radius: 10px;
@@ -534,35 +551,119 @@ label {
 
 .code-timestamp {
     font-size: 0.75rem;
-    color: 
- !important;
+    color: #64748b !important;
     font-weight: 500;
 }
 
-/* Cancel Monitor Button */
-.cancel-monitor-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, 
- 0%, 
- 100%) !important;
-    color: white !important;
-    border: none;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+/* History Card */
+.history-card {
+    max-height: 500px;
+    overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    flex-direction: column;
 }
 
-.cancel-monitor-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.7);
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(59, 130, 246, 0.4);
+}
+
+.history-header h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: 
+ !important;
+}
+
+#historyCount {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: 
+ !important;
+    background: rgba(10, 10, 10, 0.9) !important;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.history-list {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: rgba(10, 10, 10, 0.9);
+    border-radius: 10px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: 
+;
+    border-radius: 10px;
+}
+
+.empty-state {
+    text-align: center;
+    color: 
+ !important;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+}
+
+/* History Item */
+.history-item {
+    padding: 16px;
+    background: rgba(10, 10, 10, 0.9) !important;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.history-item:hover {
+    background: rgba(10, 10, 10, 1) !important;
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+.history-code {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: 
+ !important;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 3px;
+}
+
+.history-details {
+    text-align: right;
+}
+
+.history-key {
+    font-size: 0.75rem;
+    color: 
+ !important;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    margin-bottom: 4px;
+}
+
+.history-time {
+    font-size: 0.7rem;
+    color: #64748b !important;
+    font-weight: 500;
 }
 
 /* Mobile Responsive */
@@ -593,7 +694,7 @@ label {
         padding: 0 16px 30px 16px;
     }
     
-    .main-card, .email-card {
+    .main-card, .email-card, .history-card {
         padding: 24px 20px;
     }
     
@@ -637,12 +738,17 @@ label {
         font-size: 0.85rem;
     }
     
-    .cancel-monitor-btn {
-        padding: 12px;
+    .extracted-email-text {
         font-size: 0.85rem;
     }
     
-    .extracted-email-text {
-        font-size: 0.85rem;
+    .email-display-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .cancel-email-btn {
+        width: 100%;
+        padding: 12px;
     }
 }
