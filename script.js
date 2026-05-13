@@ -48,6 +48,9 @@ function generateTOTP() {
     
     // Update every second
     totpInterval = setInterval(updateTOTPCode, 1000);
+    
+    // Save to history
+    saveToHistory(secret);
 }
 
 function updateTOTPCode() {
@@ -103,6 +106,65 @@ function simpleHash(str) {
     return Math.abs(hash);
 }
 
+// History Management
+function saveToHistory(secret) {
+    const history = getHistory();
+    const code = generateTOTPCode(secret);
+    
+    const entry = {
+        secret: secret,
+        code: code,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Add to beginning of array
+    history.unshift(entry);
+    
+    // Keep only last 10 entries
+    if (history.length > 10) {
+        history.pop();
+    }
+    
+    localStorage.setItem('totpHistory', JSON.stringify(history));
+    updateHistoryDisplay();
+}
+
+function getHistory() {
+    const stored = localStorage.getItem('totpHistory');
+    return stored ? JSON.parse(stored) : [];
+}
+
+function updateHistoryDisplay() {
+    const history = getHistory();
+    const historyList = document.getElementById('historyList');
+    const historyCount = document.getElementById('historyCount');
+    
+    if (!historyList || !historyCount) return;
+    
+    historyCount.textContent = `${history.length} codes`;
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<div class="empty-state">No codes generated yet</div>';
+        return;
+    }
+    
+    historyList.innerHTML = history.map(entry => {
+        const date = new Date(entry.timestamp);
+        const timeStr = date.toLocaleTimeString();
+        const secretPreview = entry.secret.substring(0, 16) + '...';
+        
+        return `
+            <div class="history-item">
+                <div class="history-code">${entry.code}</div>
+                <div class="history-details">
+                    <div class="history-key">${secretPreview}</div>
+                    <div class="history-time">${timeStr}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 // Copy to clipboard helper
 function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -136,6 +198,9 @@ function fallbackCopy(text) {
 // Initialize on load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Script loaded successfully');
+    
+    // Update history display
+    updateHistoryDisplay();
     
     // Auto-focus on secret key input
     const secretKeyInput = document.getElementById('secretKey');
