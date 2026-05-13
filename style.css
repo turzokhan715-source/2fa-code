@@ -4,187 +4,123 @@
     box-sizing: border-box;
 }
 
+/* DARK MODE - ALWAYS ON */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: 
 ;
-    background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
     min-height: 100vh;
     padding: 0;
-    color: 
-;
-}
-
-/* Premium Header */
-.premium-header {
-    background: rgba(17, 24, 39, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-    padding: 24px 20px;
-    text-align: center;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
-
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.logo {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 8px;
-}
-
-.logo-icon {
-    font-size: 2rem;
-    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.6));
-}
-
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #6366f1 0%, 
- 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.header-subtitle {
-    font-size: 0.9rem;
     color: 
 ;
-    font-weight: 500;
+}
+
+/* Welcome Header - Dark */
+.welcome-header {
+    width: 100%;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.welcome-header p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: 
+;
+    margin: 0;
 }
 
 /* Navigation Tabs */
-.nav-container {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-}
-
 .nav-tabs {
     display: flex;
     gap: 12px;
-    background: rgba(17, 24, 39, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 8px;
-    border-radius: 16px;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    margin-bottom: 30px;
+    padding: 0 20px;
+    max-width: 600px;
+    width: 100%;
 }
 
-.nav-tab {
-    padding: 14px 28px;
-    background: transparent;
+.nav-btn {
+    flex: 1;
+    padding: 14px 20px;
+    background: rgba(30, 41, 59, 0.6);
     color: 
 ;
-    border: none;
+    border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 12px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    position: relative;
-    overflow: hidden;
 }
 
-.nav-tab::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.nav-tab:hover {
+.nav-btn:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(148, 163, 184, 0.3);
     color: 
 ;
+    transform: translateY(-2px);
 }
 
-.nav-tab:hover::before {
-    opacity: 1;
-}
-
-.nav-tab.active {
+.nav-btn.active {
     background: linear-gradient(135deg, 
  0%, 
  100%);
     color: white;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    border-color: 
+;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .nav-icon {
     font-size: 1.1rem;
 }
 
-/* Container */
-.container {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px 40px 20px;
+.nav-text {
+    font-weight: 600;
 }
 
-/* Page Content */
+/* Container */
+.container {
+    max-width: 520px;
+    width: 100%;
+    padding: 0 20px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Page Content - Show/Hide */
 .page-content {
     display: none;
-    animation: fadeIn 0.4s ease;
+    width: 100%;
 }
 
 .page-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Premium Card with Glow */
-.premium-card {
-    background: rgba(17, 24, 39, 0.8);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+/* Cards - Dark */
+.main-card, .email-card, .history-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 24px;
     padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-}
-
-.glow-card {
-    animation: cardGlow 3s ease-in-out infinite;
-}
-
-@keyframes cardGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 20px rgba(99, 102, 241, 0.1),
-            0 0 40px rgba(99, 102, 241, 0.05);
-    }
-    50% {
-        box-shadow: 
-            0 0 30px rgba(99, 102, 241, 0.3),
-            0 0 60px rgba(99, 102, 241, 0.15);
-    }
+    width: 100%;
 }
 
 .card-header {
@@ -198,7 +134,6 @@ body {
     color: 
 ;
     margin-bottom: 8px;
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
 }
 
 .card-header p {
@@ -208,9 +143,8 @@ body {
     font-weight: 500;
 }
 
-/* Input Group */
 .input-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 label {
@@ -220,51 +154,34 @@ label {
     color: 
 ;
     font-size: 0.875rem;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.premium-input {
+/* Secret Key Input - WHITE */
+.input-white {
     width: 100%;
-    padding: 16px 20px;
-    background: rgba(31, 41, 55, 0.6);
-    border: 2px solid rgba(99, 102, 241, 0.3);
+    padding: 14px 16px;
+    border: 2px solid rgba(148, 163, 184, 0.3);
     border-radius: 12px;
     font-size: 0.95rem;
+    transition: all 0.2s;
+    font-family: 'Courier New', monospace;
+    background: white;
     color: 
 ;
-    transition: all 0.3s ease;
-    font-family: 'Courier New', monospace;
 }
 
-.premium-input:focus {
+.input-white:focus {
     outline: none;
     border-color: 
 ;
-    background: rgba(31, 41, 55, 0.8);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), 0 0 20px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
 }
 
-.premium-input::placeholder {
-    color: 
-;
-}
-
-.premium-input-large {
-    padding: 18px 20px;
-    font-size: 1.05rem;
-    border-width: 3px;
-}
-
-.input-wrapper {
-    display: flex;
-    gap: 10px;
-}
-
-/* Premium Button */
-.premium-btn {
+/* Generate Button - BLUE */
+.generate-btn-blue {
     width: 100%;
-    padding: 18px;
+    padding: 16px;
     background: linear-gradient(135deg, 
  0%, 
  100%);
@@ -272,43 +189,119 @@ label {
     border: none;
     border-radius: 12px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    gap: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
-.btn-glow {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.btn-icon {
+    font-size: 1.1rem;
 }
 
-.premium-btn:hover .btn-glow {
-    opacity: 1;
-}
-
-.premium-btn:hover {
+.generate-btn-blue:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
-.premium-btn:active {
+.generate-btn-blue:active {
     transform: translateY(0);
 }
 
-/* Clear Button */
+/* Code Display */
+.code-display {
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.code-label {
+    font-size: 0.8rem;
+    color: 
+;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.totp-code {
+    font-size: 2rem;
+    font-weight: 700;
+    color: 
+;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 8px;
+}
+
+/* Email Provider Badge */
+.email-provider {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.provider-badge {
+    background: linear-gradient(135deg, 
+ 0%, 
+ 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.provider-icon {
+    font-size: 1.1rem;
+}
+
+/* Email Input - Large */
+.email-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.email-input-large {
+    flex: 1;
+    padding: 18px 20px;
+    border: 2px solid rgba(148, 163, 184, 0.3);
+    border-radius: 16px;
+    font-size: 1.05rem;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    background: rgba(15, 23, 42, 0.6);
+    color: 
+;
+}
+
+.email-input-large:focus {
+    outline: none;
+    border-color: 
+;
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.email-input-large::placeholder {
+    color: 
+;
+}
+
+/* Clear Button - RED */
 .clear-btn {
-    padding: 18px 24px;
+    padding: 18px 20px;
     background: linear-gradient(135deg, 
  0%, 
  100%);
@@ -318,156 +311,71 @@ label {
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    min-width: 60px;
 }
 
 .clear-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6);
-}
-
-/* Code Display - Glow Box */
-.code-display, .glow-box {
-    background: rgba(31, 41, 55, 0.6);
-    border: 2px solid rgba(99, 102, 241, 0.4);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 16px;
-    animation: pulseGlow 2s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 20px rgba(99, 102, 241, 0.3),
-            inset 0 0 20px rgba(99, 102, 241, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 40px rgba(99, 102, 241, 0.5),
-            inset 0 0 30px rgba(99, 102, 241, 0.2);
-    }
-}
-
-.code-label {
-    font-size: 0.75rem;
-    color: 
-;
-    font-weight: 600;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.totp-code {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: 
-;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 12px;
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
-}
-
-.code-timer {
-    margin-top: 16px;
-    height: 4px;
-    background: rgba(99, 102, 241, 0.2);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.timer-bar {
-    height: 100%;
-    background: linear-gradient(90deg, 
-, 
-);
-    width: 100%;
-    animation: timerProgress 30s linear infinite;
-}
-
-@keyframes timerProgress {
-    from { width: 100%; }
-    to { width: 0%; }
-}
-
-/* Provider Badge */
-.provider-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, 
- 0%, 
- 100%);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin: 0 auto 24px auto;
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-}
-
-.glow-badge {
-    animation: badgeGlow 2s ease-in-out infinite;
-}
-
-@keyframes badgeGlow {
-    0%, 100% {
-        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-    }
-    50% {
-        box-shadow: 0 4px 30px rgba(59, 130, 246, 0.7);
-    }
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
 }
 
 /* Email Status */
 .email-status {
-    background: rgba(31, 41, 55, 0.6);
-    border: 2px solid rgba(99, 102, 241, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(148, 163, 184, 0.3);
     border-radius: 12px;
-    padding: 14px 18px;
+    padding: 12px 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 16px;
     font-size: 0.875rem;
     color: 
 ;
     font-weight: 500;
 }
 
-.email-status.monitoring {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: #3b82f6;
-    color: 
-;
+.status-icon {
+    font-size: 1.2rem;
 }
 
-.email-status.found {
-    background: rgba(16, 185, 129, 0.1);
+.email-status.monitoring {
+    background: rgba(59, 130, 246, 0.2);
     border-color: 
 ;
     color: 
 ;
 }
 
-/* Email Code Box */
-.email-code-box {
-    background: rgba(31, 41, 55, 0.6);
-    border: 2px solid rgba(59, 130, 246, 0.4);
-    border-radius: 16px;
-    padding: 20px;
+.email-status.found {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: 
+;
+    color: 
+;
+}
+
+/* Email Code Display - Small */
+.email-code-display-small {
+    background: rgba(59, 130, 246, 0.2);
+    border: 2px solid 
+;
+    border-radius: 12px;
+    padding: 16px;
 }
 
 .code-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.code-info {
+    flex: 1;
 }
 
 .code-label-small {
@@ -475,45 +383,43 @@ label {
     color: 
 ;
     font-weight: 600;
-    margin-bottom: 6px;
-    text-transform: uppercase;
+    margin-bottom: 4px;
 }
 
-.email-code {
-    font-size: 1.8rem;
-    font-weight: 800;
+.email-code-small {
+    font-size: 1.4rem;
+    font-weight: 700;
     color: 
 ;
     font-family: 'Courier New', monospace;
-    letter-spacing: 6px;
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+    letter-spacing: 4px;
 }
 
 .copy-btn {
-    padding: 12px 20px;
+    padding: 10px 16px;
     background: linear-gradient(135deg, 
  0%, 
  100%);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .copy-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
-.code-time {
-    font-size: 0.75rem;
+.code-time-small {
+    font-size: 0.7rem;
     color: 
 ;
+    font-weight: 500;
     text-align: center;
 }
 
@@ -531,14 +437,21 @@ label {
     opacity: 1;
 }
 
-/* History */
+/* History Card */
+.history-card {
+    max-height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 .history-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+    border-bottom: 2px solid rgba(148, 163, 184, 0.2);
 }
 
 .history-header h2 {
@@ -548,18 +461,19 @@ label {
 ;
 }
 
-.count-badge {
+#historyCount {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #d1d5db;
-    background: rgba(99, 102, 241, 0.2);
-    padding: 6px 14px;
+    color: 
+;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 4px 12px;
     border-radius: 20px;
 }
 
 .history-list {
-    max-height: 400px;
     overflow-y: auto;
+    max-height: 400px;
 }
 
 .history-list::-webkit-scrollbar {
@@ -567,14 +481,13 @@ label {
 }
 
 .history-list::-webkit-scrollbar-track {
-    background: rgba(31, 41, 55, 0.4);
+    background: rgba(15, 23, 42, 0.6);
     border-radius: 10px;
 }
 
 .history-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, 
-, 
-);
+    background: 
+;
     border-radius: 10px;
 }
 
@@ -586,22 +499,23 @@ label {
     font-size: 0.9rem;
 }
 
+/* History Item */
 .history-item {
     padding: 16px;
-    background: rgba(31, 41, 55, 0.4);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(15, 23, 42, 0.6);
     border-radius: 12px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+    border: 1px solid rgba(148, 163, 184, 0.2);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    align-items: center;
 }
 
 .history-item:hover {
-    background: rgba(31, 41, 55, 0.6);
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(148, 163, 184, 0.3);
 }
 
 .history-code {
@@ -633,32 +547,32 @@ label {
     font-weight: 500;
 }
 
-/* Responsive */
+/* Responsive - Mobile */
 @media (max-width: 600px) {
-    .premium-header {
-        padding: 20px 16px;
-    }
-    
-    .logo-text {
-        font-size: 1.3rem;
+    .welcome-header p {
+        font-size: 0.75rem;
     }
     
     .nav-tabs {
-        flex-direction: column;
-        width: 100%;
+        gap: 8px;
     }
     
-    .nav-tab {
-        width: 100%;
-        justify-content: center;
+    .nav-btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .nav-text {
+        display: none;
     }
     
     .container {
         padding: 0 16px 30px 16px;
     }
     
-    .premium-card {
+    .main-card, .email-card, .history-card {
         padding: 24px 20px;
+        border-radius: 20px;
     }
     
     .card-header h1 {
@@ -666,12 +580,22 @@ label {
     }
     
     .totp-code {
-        font-size: 1.8rem;
-        letter-spacing: 8px;
+        font-size: 1.6rem;
+        letter-spacing: 6px;
     }
     
-    .email-code {
-        font-size: 1.4rem;
-        letter-spacing: 4px;
+    .email-input-large {
+        padding: 14px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .clear-btn {
+        padding: 14px 16px;
+        min-width: 50px;
+    }
+    
+    .email-code-small {
+        font-size: 1.2rem;
+        letter-spacing: 3px;
     }
 }
