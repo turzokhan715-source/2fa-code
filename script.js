@@ -33,20 +33,21 @@ function generateTOTP() {
     currentSecret = secret;
     
     // Show code display
-    document.getElementById('codeDisplay').style.display = 'block';
+    const codeDisplay = document.getElementById('codeDisplay');
+    if (codeDisplay) {
+        codeDisplay.style.display = 'block';
+    }
     
-    // Generate and display code
+    // Generate and display code immediately
     updateTOTPCode();
     
-    // Update every second
+    // Clear any existing interval
     if (totpInterval) {
         clearInterval(totpInterval);
     }
     
+    // Update every second
     totpInterval = setInterval(updateTOTPCode, 1000);
-    
-    // Save to history
-    saveToHistory(secret);
 }
 
 function updateTOTPCode() {
@@ -56,22 +57,32 @@ function updateTOTPCode() {
         const code = generateTOTPCode(currentSecret);
         const remaining = 30 - (Math.floor(Date.now() / 1000) % 30);
         
-        document.getElementById('totpCode').textContent = code;
-        document.getElementById('timeRemaining').textContent = `Valid for ${remaining}s`;
+        const totpCodeEl = document.getElementById('totpCode');
+        const timeRemainingEl = document.getElementById('timeRemaining');
         
-        // Show copy hint briefly when code changes
-        if (remaining === 30) {
-            showCopyHint();
+        if (totpCodeEl) {
+            totpCodeEl.textContent = code;
+        }
+        
+        if (timeRemainingEl) {
+            timeRemainingEl.textContent = `Valid for ${remaining}s`;
         }
     } catch (error) {
         console.error('Error generating TOTP:', error);
-        document.getElementById('totpCode').textContent = 'ERROR';
-        document.getElementById('timeRemaining').textContent = 'Invalid secret key';
+        const totpCodeEl = document.getElementById('totpCode');
+        const timeRemainingEl = document.getElementById('timeRemaining');
+        
+        if (totpCodeEl) {
+            totpCodeEl.textContent = 'ERROR';
+        }
+        if (timeRemainingEl) {
+            timeRemainingEl.textContent = 'Invalid secret key';
+        }
     }
 }
 
 function generateTOTPCode(secret) {
-    // Simple TOTP implementation (demo - use proper library in production)
+    // Simple TOTP implementation (demo version)
     const epoch = Math.floor(Date.now() / 1000);
     const timeStep = Math.floor(epoch / 30);
     
@@ -92,99 +103,67 @@ function simpleHash(str) {
     return Math.abs(hash);
 }
 
-function showCopyHint() {
-    const hint = document.getElementById('copyHint');
-    hint.classList.add('show');
-    setTimeout(() => {
-        hint.classList.remove('show');
-    }, 2000);
-}
-
-// History Management
-function saveToHistory(secret) {
-    const history = getHistory();
-    const code = generateTOTPCode(secret);
-    
-    const entry = {
-        secret: secret,
-        code: code,
-        timestamp: new Date().toISOString()
-    };
-    
-    // Add to beginning of array
-    history.unshift(entry);
-    
-    // Keep only last 10 entries
-    if (history.length > 10) {
-        history.pop();
+// Copy to clipboard helper
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Copied to clipboard:', text);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+            fallbackCopy(text);
+        });
+    } else {
+        fallbackCopy(text);
     }
-    
-    localStorage.setItem('totpHistory', JSON.stringify(history));
-    updateHistoryDisplay();
 }
 
-function getHistory() {
-    const stored = localStorage.getItem('totpHistory');
-    return stored ? JSON.parse(stored) : [];
-}
-
-function updateHistoryDisplay() {
-    const history = getHistory();
-    const historyList = document.getElementById('historyList');
-    const historyCount = document.getElementById('historyCount');
-    
-    historyCount.textContent = `${history.length} codes`;
-    
-    if (history.length === 0) {
-        historyList.innerHTML = '<div class="empty-state">No codes generated yet</div>';
-        return;
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        console.log('Copied using fallback method');
+    } catch (err) {
+        console.error('Fallback copy failed:', err);
     }
-    
-    historyList.innerHTML = history.map(entry => {
-        const date = new Date(entry.timestamp);
-        const timeStr = date.toLocaleTimeString();
-        const secretPreview = entry.secret.substring(0, 16) + '...';
-        
-        return `
-            <div class="history-item">
-                <div class="history-code">${entry.code}</div>
-                <div class="history-details">
-                    <div class="history-key">${secretPreview}</div>
-                    <div class="history-time">${timeStr}</div>
-                </div>
-            </div>
-        `;
-    }).join('');
+    document.body.removeChild(textarea);
 }
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', function() {
-    updateHistoryDisplay();
+    console.log('Script loaded successfully');
     
     // Auto-focus on secret key input
-    document.getElementById('secretKey').focus();
+    const secretKeyInput = document.getElementById('secretKey');
+    if (secretKeyInput) {
+        secretKeyInput.focus();
+        
+        // Enter key to generate
+        secretKeyInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                generateTOTP();
+            }
+        });
+    }
     
-    // Enter key to generate
-    document.getElementById('secretKey').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
+    // Add click handler to generate button
+    const generateBtn = document.querySelector('.generate-btn-blue');
+    if (generateBtn) {
+        generateBtn.addEventListener('click', function(e) {
+            e.preventDefault();
             generateTOTP();
-        }
-    });
+        });
+    }
 });
 
-// Copy to clipboard helper
-function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text);
-    } else {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+// Clean up interval on page unload
+window.addEventListener('beforeunload', function() {
+    if (totpInterval) {
+        clearInterval(totpInterval);
     }
-}
+});
